@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstddef>
-#include <stdexcept>
 #include <type_traits>
 #include <utility>
 #include <variant>
@@ -39,7 +38,8 @@ void LoadVariantByIndex(Archive& ar, std::variant<Types...>& value, std::size_t 
         }
         LoadVariantByIndex<I + 1>(ar, value, index);
     } else {
-        throw std::runtime_error("Invalid serialized variant index");
+        using FallbackT = std::variant_alternative_t<0, std::variant<Types...>>;
+        value = FallbackT{};
     }
 }
 
