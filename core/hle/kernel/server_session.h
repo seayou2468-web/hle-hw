@@ -14,7 +14,7 @@
 #include "wait_object.h"
 #include "../result.h"
 #include "../../memory.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -113,5 +113,5 @@ private:
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::ServerSession)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::ServerSession)
 CONSTRUCT_KERNEL_OBJECT(Kernel::ServerSession)

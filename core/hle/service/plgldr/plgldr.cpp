@@ -33,7 +33,7 @@
 #include "../../kernel/kernel.h"
 #include "plgldr.h"
 #include "../../../loader/loader.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Service::PLGLDR::PLG_LDR)
 SERVICE_CONSTRUCT_IMPL(Service::PLGLDR::PLG_LDR)

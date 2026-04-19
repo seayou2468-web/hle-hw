@@ -12,7 +12,7 @@
 #include "../hle/result.h"
 #include "../hle/service/fs/archive.h"
 #include "../../network/artic_base/artic_base_client.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -88,4 +88,4 @@ Path ConstructSystemSaveDataBinaryPath(u32 high, u32 low);
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_SystemSaveData)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_SystemSaveData)

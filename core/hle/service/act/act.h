@@ -77,5 +77,5 @@ void InstallInterfaces(Core::System& system);
 
 } // namespace Service::ACT
 
-BOOST_CLASS_EXPORT_KEY(Service::ACT::Module)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::ACT::Module)
 SERVICE_CONSTRUCT(Service::ACT::Module)

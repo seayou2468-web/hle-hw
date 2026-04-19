@@ -10,7 +10,7 @@
 #include "artic_cache.h"
 #include "../hle/result.h"
 #include "../../network/artic_base/artic_base_client.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace Service::FS {
 enum class ArchiveIdCode : u32;
@@ -57,4 +57,4 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveSource_SDSaveData)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveSource_SDSaveData)

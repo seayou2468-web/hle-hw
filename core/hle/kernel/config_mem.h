@@ -14,7 +14,7 @@
 #include "../../../common/memory_ref.h"
 #include "../../../common/swap.h"
 #include "../../memory.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace ConfigMem {
 
@@ -76,4 +76,4 @@ private:
 
 } // namespace ConfigMem
 
-BOOST_CLASS_EXPORT_KEY(ConfigMem::Handler)
+SERIALIZATION_CLASS_EXPORT_KEY(ConfigMem::Handler)

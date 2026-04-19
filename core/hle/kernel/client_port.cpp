@@ -12,7 +12,7 @@
 #include "object.h"
 #include "server_port.h"
 #include "server_session.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::ClientPort)
 

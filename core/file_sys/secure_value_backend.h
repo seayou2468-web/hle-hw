@@ -62,4 +62,4 @@ protected:
 };
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::DefaultSecureValueBackend)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::DefaultSecureValueBackend)

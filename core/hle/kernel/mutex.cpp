@@ -11,7 +11,7 @@
 #include "object.h"
 #include "resource_limit.h"
 #include "thread.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::Mutex)
 

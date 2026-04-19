@@ -54,6 +54,6 @@ class ExtSaveDataArchive;
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::SaveDataArchive)
-BOOST_CLASS_EXPORT_KEY(FileSys::SaveDataDelayGenerator)
-BOOST_CLASS_EXPORT_KEY(FileSys::ExtSaveDataArchive)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::SaveDataArchive)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::SaveDataDelayGenerator)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ExtSaveDataArchive)

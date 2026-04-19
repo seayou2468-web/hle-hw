@@ -105,5 +105,5 @@ private:
 
 } // namespace Service::IR
 
-BOOST_CLASS_EXPORT_KEY(Service::IR::IR_RST)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::IR::IR_RST)
 SERVICE_CONSTRUCT(Service::IR::IR_RST)

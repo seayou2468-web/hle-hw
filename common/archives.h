@@ -1,6 +1,6 @@
 #pragma once
 
-#include "serialization/boost_all_serialization.h"
+#include "serialization/serialization_compat.h"
 
 using iarchive = MikageSerialization::input_archive;
 using oarchive = MikageSerialization::output_archive;

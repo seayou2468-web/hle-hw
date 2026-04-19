@@ -7,7 +7,7 @@
 #include <memory>
 #include <unordered_map>
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -49,5 +49,5 @@ private:
 } // namespace Service::SM
 
 SERVICE_CONSTRUCT(Service::SM::SRV)
-BOOST_CLASS_EXPORT_KEY(Service::SM::SRV)
-BOOST_CLASS_EXPORT_KEY(Service::SM::SRV::ThreadCallback)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::SM::SRV)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::SM::SRV::ThreadCallback)

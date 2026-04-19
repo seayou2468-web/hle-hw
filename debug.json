@@ -48019,7 +48019,7 @@
     "Projects\/451BF3C7-8764-4DBA-82B7-3B9A86C655D2\/src\/core\/mikage\/core\/hle\/service\/boss\/online_service.cpp" : {
       "debugItems" : [
         {
-          "message" : "'common\/serialization\/boost_all_serialization.h' file not found",
+          "message" : "'common\/serialization\/serialization_compat.h' file not found",
           "severity" : 2,
           "line" : 4,
           "column" : 10

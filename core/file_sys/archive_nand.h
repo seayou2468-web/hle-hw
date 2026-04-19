@@ -8,7 +8,7 @@
 #include <string>
 #include "archive_backend.h"
 #include "../hle/result.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -109,5 +109,5 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::NANDArchive)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_NAND)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::NANDArchive)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_NAND)

@@ -434,6 +434,6 @@ ResultVal<ArchiveFormatInfo> ArchiveFactory_ExtSaveData::GetFormatInfo(const Pat
 }
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT(FileSys::FixSizeDiskFile)
+SERIALIZATION_CLASS_EXPORT(FileSys::FixSizeDiskFile)
 SERIALIZE_EXPORT_IMPL(FileSys::ExtSaveDataDelayGenerator)
 SERIALIZE_EXPORT_IMPL(FileSys::ExtSaveDataArchive)

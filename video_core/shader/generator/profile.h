@@ -45,7 +45,6 @@ struct Profile {
     u8 vk_use_spirv_generator{};
     std::array<VKFormatTraits, 16> vk_format_traits{};
 
-    u8 is_vulkan{};
 
     auto operator<=>(const Profile&) const = default;
 };

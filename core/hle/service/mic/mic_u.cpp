@@ -16,7 +16,7 @@
 #include "../../kernel/kernel.h"
 #include "../../kernel/shared_memory.h"
 #include "mic_u.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERVICE_CONSTRUCT_IMPL(Service::MIC::MIC_U)
 SERIALIZE_EXPORT_IMPL(Service::MIC::MIC_U)

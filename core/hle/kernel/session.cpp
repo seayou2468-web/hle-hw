@@ -7,7 +7,7 @@
 #include "client_session.h"
 #include "server_session.h"
 #include "session.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::Session)
 

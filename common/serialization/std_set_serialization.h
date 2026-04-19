@@ -3,7 +3,7 @@
 
 #pragma once
 
-// Standard set serialization support (replaces boost/serialization/set.hpp)
+// Standard set serialization support (standard-library-only implementation)
 // Uses PointerWrap framework from chunk_file.h for container serialization
 
 #include <set>

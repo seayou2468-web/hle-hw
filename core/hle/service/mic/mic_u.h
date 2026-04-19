@@ -6,7 +6,7 @@
 
 #include <memory>
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -203,5 +203,5 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::MIC
 
 SERVICE_CONSTRUCT(Service::MIC::MIC_U)
-BOOST_CLASS_EXPORT_KEY(Service::MIC::MIC_U)
-BOOST_CLASS_VERSION(Service::MIC::MIC_U::Impl, 1)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::MIC::MIC_U)
+SERIALIZATION_CLASS_VERSION(Service::MIC::MIC_U::Impl, 1)

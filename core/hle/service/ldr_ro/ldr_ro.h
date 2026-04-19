@@ -175,5 +175,5 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::LDR
 
 SERVICE_CONSTRUCT(Service::LDR::RO)
-BOOST_CLASS_EXPORT_KEY(Service::LDR::RO)
-BOOST_CLASS_EXPORT_KEY(Service::LDR::ClientSlot)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::LDR::RO)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::LDR::ClientSlot)

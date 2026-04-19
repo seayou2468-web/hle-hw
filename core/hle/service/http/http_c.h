@@ -912,5 +912,5 @@ void InstallInterfaces(Core::System& system);
 
 } // namespace Service::HTTP
 
-BOOST_CLASS_EXPORT_KEY(Service::HTTP::HTTP_C)
-BOOST_CLASS_EXPORT_KEY(Service::HTTP::SessionData)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::HTTP::HTTP_C)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::HTTP::SessionData)

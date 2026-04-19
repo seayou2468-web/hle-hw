@@ -20,7 +20,7 @@
 #include "../../kernel/server_session.h"
 #include "sm.h"
 #include "srv.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERVICE_CONSTRUCT_IMPL(Service::SM::SRV)
 SERIALIZE_EXPORT_IMPL(Service::SM::SRV)

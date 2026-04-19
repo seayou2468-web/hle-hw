@@ -15,7 +15,7 @@
 #include "directory.h"
 #include "file.h"
 #include "../../../../network/artic_base/artic_base_client.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 /// The unique system identifier hash, also known as ID0
 static constexpr char SYSTEM_ID[]{"00000000000000000000000000000000"};

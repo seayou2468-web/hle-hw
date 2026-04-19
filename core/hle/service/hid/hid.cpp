@@ -21,7 +21,7 @@
 #include "../ir/ir_user.h"
 #include "../service.h"
 #include "../../../movie.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERVICE_CONSTRUCT_IMPL(Service::HID::Module)
 SERIALIZE_EXPORT_IMPL(Service::HID::Module)

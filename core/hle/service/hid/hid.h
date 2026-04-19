@@ -18,7 +18,7 @@
 #include "../../../frontend/input.h"
 #include "../service.h"
 #include "../../../../network/artic_base/artic_base_client.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 class Event;
@@ -408,5 +408,5 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::HID
 
 SERVICE_CONSTRUCT(Service::HID::Module)
-BOOST_CLASS_EXPORT_KEY(Service::HID::Module)
-BOOST_CLASS_VERSION(Service::HID::Module, 1)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::HID::Module)
+SERIALIZATION_CLASS_VERSION(Service::HID::Module, 1)

@@ -21,7 +21,7 @@
 #include "../../../../video_core/pica/regs_lcd.h"
 #include "../../../../video_core/renderer_base.h"
 #include "../../../../video_core/right_eye_disabler.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Service::GSP::SessionData)
 SERIALIZE_EXPORT_IMPL(Service::GSP::GSP_GPU)

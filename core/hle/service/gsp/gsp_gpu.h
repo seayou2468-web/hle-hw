@@ -15,7 +15,7 @@
 #include "gsp_command.h"
 #include "gsp_interrupt.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -414,6 +414,6 @@ private:
 
 } // namespace Service::GSP
 
-BOOST_CLASS_EXPORT_KEY(Service::GSP::SessionData)
-BOOST_CLASS_EXPORT_KEY(Service::GSP::GSP_GPU)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::GSP::SessionData)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::GSP::GSP_GPU)
 SERVICE_CONSTRUCT(Service::GSP::GSP_GPU)

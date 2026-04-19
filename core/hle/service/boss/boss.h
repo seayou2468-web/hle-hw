@@ -10,7 +10,7 @@
 #include "../../kernel/resource_limit.h"
 #include "online_service.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -995,5 +995,5 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::BOSS
 
 SERVICE_CONSTRUCT(Service::BOSS::Module)
-BOOST_CLASS_EXPORT_KEY(Service::BOSS::Module)
-BOOST_CLASS_EXPORT_KEY(Service::BOSS::Module::SessionData)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::BOSS::Module)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::BOSS::Module::SessionData)

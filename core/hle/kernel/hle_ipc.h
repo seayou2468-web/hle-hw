@@ -17,7 +17,7 @@
 #include "../ipc.h"
 #include "object.h"
 #include "server_session.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Service {
 class ServiceFrameworkBase;
@@ -394,8 +394,8 @@ private:
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::SessionRequestHandler)
-BOOST_CLASS_EXPORT_KEY(Kernel::SessionRequestHandler::SessionDataBase)
-BOOST_CLASS_EXPORT_KEY(Kernel::SessionRequestHandler::SessionInfo)
-BOOST_CLASS_EXPORT_KEY(Kernel::HLERequestContext)
-BOOST_CLASS_EXPORT_KEY(Kernel::HLERequestContext::ThreadCallback)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::SessionRequestHandler)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::SessionRequestHandler::SessionDataBase)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::SessionRequestHandler::SessionInfo)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::HLERequestContext)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::HLERequestContext::ThreadCallback)

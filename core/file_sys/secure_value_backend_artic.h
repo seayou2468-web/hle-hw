@@ -50,4 +50,4 @@ private:
 };
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::ArticSecureValueBackend)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArticSecureValueBackend)

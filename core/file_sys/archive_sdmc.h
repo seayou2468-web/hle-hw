@@ -8,7 +8,7 @@
 #include <string>
 #include "archive_backend.h"
 #include "../hle/result.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -86,6 +86,6 @@ class SDMCDelayGenerator;
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::SDMCArchive)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_SDMC)
-BOOST_CLASS_EXPORT_KEY(FileSys::SDMCDelayGenerator)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::SDMCArchive)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_SDMC)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::SDMCDelayGenerator)

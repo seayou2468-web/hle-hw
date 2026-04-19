@@ -12,7 +12,7 @@
 #include "../hle/service/fs/archive.h"
 #include "../perf_stats.h"
 #include "../../network/artic_base/artic_base_client.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -263,6 +263,6 @@ private:
 };
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::ArticArchive)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArticFileBackend)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArticDirectoryBackend)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArticArchive)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArticFileBackend)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArticDirectoryBackend)

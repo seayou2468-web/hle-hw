@@ -270,7 +270,7 @@ static constexpr void MortonCopy(u32 width, u32 height, u32 start_offset, u32 en
     ASSERT(!morton_to_linear ||
            (aligned_start_offset == start_offset && aligned_end_offset == end_offset));
 
-    // In OpenGL the texture origin is in the bottom left corner as opposed to other
+    // In legacy GPU APIs the texture origin can be in the bottom left corner as opposed to other
     // APIs that have it at the top left. To avoid flipping texture coordinates in
     // the shader we read/write the linear buffer from the bottom up
     u32 x = (begin_pixel_index % (width * 8)) / 8;

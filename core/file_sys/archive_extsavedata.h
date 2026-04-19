@@ -14,7 +14,7 @@
 #include "../hle/result.h"
 #include "../hle/service/fs/archive.h"
 #include "../../network/artic_base/artic_base_client.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -132,5 +132,5 @@ class ExtSaveDataDelayGenerator;
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_ExtSaveData)
-BOOST_CLASS_EXPORT_KEY(FileSys::ExtSaveDataDelayGenerator)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_ExtSaveData)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ExtSaveDataDelayGenerator)

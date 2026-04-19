@@ -20,7 +20,7 @@
 #include "uds_common.h"
 #include "../service.h"
 #include "../../../../network/network.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -654,5 +654,5 @@ private:
 } // namespace Service::NWM
 
 SERVICE_CONSTRUCT(Service::NWM::NWM_UDS)
-BOOST_CLASS_EXPORT_KEY(Service::NWM::NWM_UDS)
-BOOST_CLASS_EXPORT_KEY(Service::NWM::NWM_UDS::ThreadCallback)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::NWM::NWM_UDS)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::NWM::NWM_UDS::ThreadCallback)

@@ -1108,4 +1108,4 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::APT
 
 SERVICE_CONSTRUCT(Service::APT::Module)
-BOOST_CLASS_VERSION(Service::APT::Module, 1)
+SERIALIZATION_CLASS_VERSION(Service::APT::Module, 1)

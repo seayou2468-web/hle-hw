@@ -13,7 +13,7 @@
 #include "../../kernel/event.h"
 #include "../../kernel/server_session.h"
 #include "file.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Service::FS::File)
 SERIALIZE_EXPORT_IMPL(Service::FS::FileSessionSlot)

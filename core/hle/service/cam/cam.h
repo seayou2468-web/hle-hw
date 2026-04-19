@@ -15,7 +15,7 @@
 #include "../../result.h"
 #include "cam_params.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -767,5 +767,5 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::CAM
 
 SERVICE_CONSTRUCT(Service::CAM::Module)
-BOOST_CLASS_VERSION(Service::CAM::Module, 1)
-BOOST_CLASS_VERSION(Service::CAM::Module::CameraConfig, 1)
+SERIALIZATION_CLASS_VERSION(Service::CAM::Module, 1)
+SERIALIZATION_CLASS_VERSION(Service::CAM::Module::CameraConfig, 1)

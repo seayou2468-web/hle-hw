@@ -9,7 +9,7 @@
 #include "../../kernel/mutex.h"
 #include "../../kernel/shared_memory.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -277,5 +277,5 @@ void InstallInterfaces(Core::System& system);
 
 } // namespace Service::CSND
 
-BOOST_CLASS_EXPORT_KEY(Service::CSND::CSND_SND)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::CSND::CSND_SND)
 SERVICE_CONSTRUCT(Service::CSND::CSND_SND)

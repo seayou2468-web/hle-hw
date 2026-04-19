@@ -6,7 +6,7 @@
 
 #include <memory>
 #include "../../../common/common_types.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -31,5 +31,5 @@ class SVC_IPCCallback;
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::SVC_SyncCallback)
-BOOST_CLASS_EXPORT_KEY(Kernel::SVC_IPCCallback)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::SVC_SyncCallback)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::SVC_IPCCallback)

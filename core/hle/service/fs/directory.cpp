@@ -7,7 +7,7 @@
 #include "../../../file_sys/directory_backend.h"
 #include "../../ipc_helpers.h"
 #include "directory.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Service::FS::Directory)
 

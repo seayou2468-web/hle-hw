@@ -8,7 +8,7 @@
 #include "../../../common/assert.h"
 #include "../../../common/common_funcs.h"
 #include "../../../common/logging/log.h"
-#include "../../../common/serialization/boost_vector.hpp"
+#include "../../../common/serialization/std_vector_serialization.hpp"
 #include "../../core.h"
 #include "errors.h"
 #include "memory.h"
@@ -19,7 +19,7 @@
 #include "../service/plgldr/plgldr.h"
 #include "../../loader/loader.h"
 #include "../../memory.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::AddressMapping)
 SERIALIZE_EXPORT_IMPL(Kernel::Process)

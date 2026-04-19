@@ -63,6 +63,4 @@ inline T length(const std::pair<T, T>& interval) noexcept {
 
 } // namespace MikageIcl
 
-namespace boost {
 namespace icl = MikageIcl;
-}

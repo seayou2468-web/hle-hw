@@ -12,7 +12,7 @@
 #include "archive_backend.h"
 #include "../hle/result.h"
 #include "../loader/loader.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -68,6 +68,6 @@ class SelfNCCHArchive;
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_SelfNCCH)
-BOOST_CLASS_EXPORT_KEY(FileSys::ExeFSSectionFile)
-BOOST_CLASS_EXPORT_KEY(FileSys::SelfNCCHArchive)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_SelfNCCH)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ExeFSSectionFile)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::SelfNCCHArchive)

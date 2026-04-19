@@ -12,7 +12,7 @@
 #include "../../common/common_types.h"
 #include "../../common/swap.h"
 #include "romfs_reader.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -152,4 +152,4 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::LayeredFS)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::LayeredFS)

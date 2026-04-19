@@ -80,4 +80,4 @@ private:
 } // namespace Service::MCU
 
 SERVICE_CONSTRUCT(Service::MCU::RTC)
-BOOST_CLASS_EXPORT_KEY(Service::MCU::RTC)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::MCU::RTC)

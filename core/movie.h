@@ -6,7 +6,7 @@
 
 #include <functional>
 #include <span>
-#include "../common/serialization/boost_all_serialization.h"
+#include "../common/serialization/serialization_compat.h"
 #include "../common/common_types.h"
 
 namespace Service {
@@ -193,4 +193,4 @@ private:
 };
 } // namespace Core
 
-BOOST_CLASS_VERSION(Core::Movie, 1)
+SERIALIZATION_CLASS_VERSION(Core::Movie, 1)

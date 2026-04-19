@@ -9,7 +9,7 @@
 #include "object.h"
 #include "wait_object.h"
 #include "../result.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -55,5 +55,5 @@ private:
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::Semaphore)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::Semaphore)
 CONSTRUCT_KERNEL_OBJECT(Kernel::Semaphore)

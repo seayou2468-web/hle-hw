@@ -78,7 +78,7 @@ class GraphicsContext {
 public:
     virtual ~GraphicsContext();
 
-    /// Checks whether this context uses OpenGL ES.
+    /// Checks whether this context uses a GLES-compatible implementation.
     virtual bool IsGLES() {
         return false;
     }
@@ -119,7 +119,7 @@ public:
 
 /**
  * Abstraction class used to provide an interface between emulation code and the frontend
- * (e.g. SDL, QGLWidget, GLFW, etc...).
+ * (e.g. UIKit/Metal view, platform-native surface wrappers, etc...).
  *
  * Design notes on the interaction between EmuWindow and the emulation core:
  * - Generally, decisions on anything visible to the user should be left up to the GUI.
@@ -150,7 +150,7 @@ public:
 
     /// Data describing host window system information
     struct WindowSystemInfo {
-        // Window system type. Determines which GL context or Vulkan WSI is used.
+        // Window system type. Determines which platform presentation path is used.
         WindowSystemType type = WindowSystemType::Headless;
 
         // Connection to a display server. This is used on X11 and Wayland platforms.

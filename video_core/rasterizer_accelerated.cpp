@@ -67,7 +67,7 @@ RasterizerAccelerated::RasterizerAccelerated(Memory::MemorySystem& memory_, Pica
  * opposite by checking if Dot(Q1, Q2) < 0. In that case, you can flip either of them, therefore
  * making Dot(Q1, -Q2) positive.
  *
- * This solution corrects this issue per-vertex before passing the quaternions to OpenGL. This is
+ * This solution corrects this issue per-vertex before passing the quaternions to the graphics pipeline. This is
  * correct for most cases but can still rotate around the long way sometimes. An implementation
  * which did `lerp(lerp(Q1, Q2), Q3)` (with proper weighting), applying the dot product check
  * between each step would work for those cases at the cost of being more complex to implement.

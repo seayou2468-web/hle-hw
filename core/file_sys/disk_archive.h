@@ -14,7 +14,7 @@
 #include "directory_backend.h"
 #include "file_backend.h"
 #include "../hle/result.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -96,5 +96,5 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::DiskFile)
-BOOST_CLASS_EXPORT_KEY(FileSys::DiskDirectory)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::DiskFile)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::DiskDirectory)

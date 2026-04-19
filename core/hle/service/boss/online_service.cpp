@@ -4,7 +4,7 @@
 
 #include "../../../../common/archives.h"
 #include "../../../../common/file_util.h"
-#include "../../../../common/serialization/boost_std_variant.hpp"
+#include "../../../../common/serialization/std_variant_serialization.hpp"
 #include "../../../../common/string_util.h"
 #include "../../../core.h"
 #include "../../../file_sys/archive_backend.h"
@@ -15,7 +15,7 @@
 #include "../../../file_sys/file_backend.h"
 #include "../../kernel/hle_ipc.h"
 #include "online_service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Service::BOSS {
 

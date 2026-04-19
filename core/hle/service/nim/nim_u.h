@@ -544,4 +544,4 @@ private:
 } // namespace Service::NIM
 
 SERVICE_CONSTRUCT(Service::NIM::NIM_U)
-BOOST_CLASS_EXPORT_KEY(Service::NIM::NIM_U)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::NIM::NIM_U)

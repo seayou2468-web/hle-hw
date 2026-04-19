@@ -16,7 +16,7 @@
 #include "process.h"
 #include "thread.h"
 #include "../../memory.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::MappedBufferContext)
 

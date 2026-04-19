@@ -8,7 +8,7 @@
 #include "../../../file_sys/archive_backend.h"
 #include "../../../global.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -85,5 +85,5 @@ private:
 
 } // namespace Service::FS
 
-BOOST_CLASS_EXPORT_KEY(Service::FS::FileSessionSlot)
-BOOST_CLASS_EXPORT_KEY(Service::FS::File)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::FS::FileSessionSlot)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::FS::File)

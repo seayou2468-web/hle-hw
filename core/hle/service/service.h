@@ -16,7 +16,7 @@
 #include "../kernel/hle_ipc.h"
 #include "../kernel/object.h"
 #include "sm/sm.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
