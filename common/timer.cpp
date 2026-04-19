@@ -2,13 +2,8 @@
 // Licensed under GPLv2
 // Refer to the license.txt file included.
 
+#include <chrono>
 #include <time.h>
-
-#ifdef _WIN32
-#include <mmsystem.h>
-#else
-#endif
-
 #include "common.h"
 #include "timer.h"
 #include "string_util.h"
@@ -18,13 +13,8 @@ namespace Common
 
 u32 Timer::GetTimeMs()
 {
-#ifdef _WIN32
-    return timeGetTime();
-#else
-    struct timeval t;
-    (void)gettimeofday(&t, NULL);
-    return ((u32)(t.tv_sec * 1000 + t.tv_usec / 1000));
-#endif
+    using namespace std::chrono;
+    return static_cast<u32>(duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count());
 }
 
 // --------------------------------------------
@@ -117,19 +107,9 @@ std::string Timer::GetTimeElapsedFormatted() const
 }
 
 // Get current time
-void Timer::IncreaseResolution()
-{
-#ifdef _WIN32
-    timeBeginPeriod(1);
-#endif
-}
+void Timer::IncreaseResolution() {}
 
-void Timer::RestoreResolution()
-{
-#ifdef _WIN32
-    timeEndPeriod(1);
-#endif
-}
+void Timer::RestoreResolution() {}
 
 // Get the number of seconds since January 1 1970
 u64 Timer::GetTimeSinceJan1970()
@@ -175,15 +155,9 @@ std::string Timer::GetTimeFormatted()
     strftime(tmp, 6, "%M:%S", gmTime);
 
     // Now tack on the milliseconds
-#ifdef _WIN32
-    struct timeb tp;
-    (void)::ftime(&tp);
-    sprintf(formattedTime, "%s:%03i", tmp, tp.millitm);
-#else
     struct timeval t;
     (void)gettimeofday(&t, NULL);
     sprintf(formattedTime, "%s:%03d", tmp, (int)(t.tv_usec / 1000));
-#endif
 
     return std::string(formattedTime);
 }
@@ -192,13 +166,8 @@ std::string Timer::GetTimeFormatted()
 // ----------------
 double Timer::GetDoubleTime()
 {
-#ifdef _WIN32
-    struct timeb tp;
-    (void)::ftime(&tp);
-#else
     struct timeval t;
     (void)gettimeofday(&t, NULL);
-#endif
     // Get continuous timestamp
     u64 TmpSeconds = Common::Timer::GetTimeSinceJan1970();
 
@@ -210,11 +179,7 @@ double Timer::GetDoubleTime()
 
     // Make a smaller integer that fits in the double
     u32 Seconds = (u32)TmpSeconds;
-#ifdef _WIN32
-    double ms = tp.millitm / 1000.0 / 1000.0;
-#else
     double ms = t.tv_usec / 1000000.0;
-#endif
     double TmpTime = Seconds + ms;
 
     return TmpTime;

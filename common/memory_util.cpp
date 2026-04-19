@@ -10,7 +10,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-#if !defined(_WIN32) && defined(__aarch64__) && !defined(MAP_32BIT)
+#if defined(__aarch64__) && !defined(MAP_32BIT)
 #define PAGE_MASK     (getpagesize() - 1)
 #define round_page(x) ((((unsigned long)(x)) + PAGE_MASK) & ~(PAGE_MASK))
 #endif
@@ -41,14 +41,8 @@ void* AllocateExecutableMemory(size_t size, bool low)
     // printf("Mapped executable memory at %p (size %ld)\n", ptr,
     //    (unsigned long)size);
     
-#if defined(__FreeBSD__)
-    if (ptr == MAP_FAILED)
-    {
-        ptr = NULL;
-#else
     if (ptr == NULL)
     {
-#endif    
         PanicAlert("Failed to allocate executable memory");
     }
 #if defined(__aarch64__) && !defined(MAP_32BIT)
@@ -88,12 +82,8 @@ void* AllocateMemoryPages(size_t size)
 void* AllocateAlignedMemory(size_t size,size_t alignment)
 {
     void* ptr = NULL;
-#ifdef ANDROID
-    ptr = memalign(alignment, size);
-#else
     if (posix_memalign(&ptr, alignment, size) != 0)
         ERROR_LOG(MEMMAP, "Failed to allocate aligned memory");
-#endif
 
     // printf("Mapped memory at %p (size %ld)\n", ptr,
     //    (unsigned long)size);

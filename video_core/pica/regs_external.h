@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <fmt/format.h>
+#include <format>
 
 #include <string>
 #include "../../common/assert.h"
@@ -86,7 +86,7 @@ struct MemoryFillConfig {
     }
 
     inline std::string DebugName() const {
-        return fmt::format("from {:#X} to {:#X} with {}-bit value {:#X}", GetStartAddress(),
+        return std::format("from {:#X} to {:#X} with {}-bit value {:#X}", GetStartAddress(),
                            GetEndAddress(), fill_32bit ? "32" : (fill_24bit ? "24" : "16"),
                            value_32bit);
     }
@@ -149,7 +149,7 @@ struct DisplayTransferConfig {
     }
 
     inline std::string DebugName() const noexcept {
-        return fmt::format("from {:#x} to {:#x} with {} scaling and stride {}, width {}",
+        return std::format("from {:#x} to {:#x} with {} scaling and stride {}, width {}",
                            GetPhysicalInputAddress(), GetPhysicalOutputAddress(),
                            scaling == NoScale ? "no" : (scaling == ScaleX ? "X" : "XY"),
                            input_width.Value(), output_width.Value());

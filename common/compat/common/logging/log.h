@@ -5,12 +5,7 @@
 #include <iostream>
 #include <cstdio>
 
-#ifdef __APPLE__
 #include <os/log.h>
-#define USE_OS_LOG 1
-#else
-#define USE_OS_LOG 0
-#endif
 
 enum class LogLevel {
     Trace,
@@ -36,7 +31,6 @@ inline void LogMessage(LogLevel level, LogCategory category, const char* format,
     va_list args;
     va_start(args, format);
     
-#if USE_OS_LOG
     // iOS NSLog-style output
     os_log_type_t os_level = OS_LOG_TYPE_DEFAULT;
     switch (level) {
@@ -59,11 +53,6 @@ inline void LogMessage(LogLevel level, LogCategory category, const char* format,
     char buffer[1024];
     vsnprintf(buffer, sizeof(buffer), format, args);
     os_log_with_type(OS_LOG_DEFAULT, os_level, "%{public}s", buffer);
-#else
-    // Standard stderr output
-    vfprintf(stderr, format, args);
-    fprintf(stderr, "\n");
-#endif
     
     va_end(args);
 }

@@ -12,11 +12,9 @@
 #include <errno.h>
 #include <stdlib.h>
 
-#if defined(__APPLE__)
 #include <CoreFoundation/CFString.h>
 #include <CoreFoundation/CFURL.h>
 #include <CoreFoundation/CFBundle.h>
-#endif
 
 #include <algorithm>
 #include "string_util.h"
@@ -207,16 +205,7 @@ bool Copy(const std::string &srcFilename, const std::string &destFilename)
 {
     INFO_LOG(COMMON, "Copy: %s --> %s", 
             srcFilename.c_str(), destFilename.c_str());
-#ifdef _WIN32
-    if (CopyFile(UTF8ToTStr(srcFilename).c_str(), UTF8ToTStr(destFilename).c_str(), FALSE))
-        return true;
-
-    ERROR_LOG(COMMON, "Copy: failed %s --> %s: %s", 
-            srcFilename.c_str(), destFilename.c_str(), GetLastErrorMsg());
-    return false;
-#else
-
-    // buffer size
+// buffer size
 #define BSIZE 1024
 
     char buffer[BSIZE];
@@ -276,7 +265,6 @@ bail:
     if (output)
         fclose(output);
     return false;
-#endif
 }
 
 // Returns the size of filename (64bit)
@@ -295,11 +283,7 @@ u64 GetSize(const std::string &filename)
     }
     
     struct stat64 buf;
-#ifdef _WIN32
-    if (_tstat64(UTF8ToTStr(filename).c_str(), &buf) == 0)
-#else
     if (stat64(filename.c_str(), &buf) == 0)
-#endif
     {
         DEBUG_LOG(COMMON, "GetSize: %s: %lld",
                 filename.c_str(), (long long)buf.st_size);
@@ -360,183 +344,110 @@ bool CreateEmptyFile(const std::string &filename)
 
 // Scans the directory tree gets, starting from _Directory and adds the
 // results into parentEntry. Returns the number of files+directories found
-u32 ScanDirectoryTree(const std::string &directory, FSTEntry& parentEntry)
-{
+u32 ScanDirectoryTree(const std::string& directory, FSTEntry& parentEntry) {
     INFO_LOG(COMMON, "ScanDirectoryTree: directory %s", directory.c_str());
-    // How many files + directories we found
-    u32 foundEntries = 0;
-#ifdef _WIN32
-    // Find the first file in the directory.
-    WIN32_FIND_DATA ffd;
+    u32 found_entries = 0;
 
-    HANDLE hFind = FindFirstFile(UTF8ToTStr(directory + "\\*").c_str(), &ffd);
-    if (hFind == INVALID_HANDLE_VALUE)
-    {
-        FindClose(hFind);
-        return foundEntries;
-    }
-    // windows loop
-    do
-    {
-        FSTEntry entry;
-        const std::string virtualName(TStrToUTF8(ffd.cFileName));
-#else
-    struct dirent* result = NULL;
-
-    DIR *dirp = opendir(directory.c_str());
+    DIR* dirp = opendir(directory.c_str());
     if (!dirp)
         return 0;
 
-    // non windows loop
-    while ((result = readdir(dirp)) != NULL)
-    {
+    struct dirent* result = nullptr;
+    while ((result = readdir(dirp)) != nullptr) {
         FSTEntry entry;
-        const std::string virtualName(result->d_name);
-#endif
-        // check for "." and ".."
-        if (((virtualName[0] == '.') && (virtualName[1] == '\0')) ||
-                ((virtualName[0] == '.') && (virtualName[1] == '.') && 
-                 (virtualName[2] == '\0')))
-            continue;
-        entry.virtualName = virtualName;
-        entry.physicalName = directory;
-        entry.physicalName += DIR_SEP + entry.virtualName;
+        const std::string virtual_name(result->d_name);
 
-        if (IsDirectory(entry.physicalName.c_str()))
-        {
+        if (((virtual_name[0] == '.') && (virtual_name[1] == '\0')) ||
+            ((virtual_name[0] == '.') && (virtual_name[1] == '.') && (virtual_name[2] == '\0')))
+            continue;
+
+        entry.virtualName = virtual_name;
+        entry.physicalName = directory + DIR_SEP + entry.virtualName;
+
+        if (IsDirectory(entry.physicalName.c_str())) {
             entry.isDirectory = true;
-            // is a directory, lets go inside
             entry.size = ScanDirectoryTree(entry.physicalName, entry);
-            foundEntries += (u32)entry.size;
-        }
-        else
-        { // is a file 
+            found_entries += static_cast<u32>(entry.size);
+        } else {
             entry.isDirectory = false;
             entry.size = GetSize(entry.physicalName.c_str());
         }
-        ++foundEntries;
-        // Push into the tree
-        parentEntry.children.push_back(entry);        
-#ifdef _WIN32 
-    } while (FindNextFile(hFind, &ffd) != 0);
-    FindClose(hFind);
-#else
+        ++found_entries;
+        parentEntry.children.push_back(entry);
     }
+
     closedir(dirp);
-#endif
-    // Return number of entries found.
-    return foundEntries;
+    return found_entries;
 }
 
 
 // Deletes the given directory and anything under it. Returns true on success.
-bool DeleteDirRecursively(const std::string &directory)
-{
+bool DeleteDirRecursively(const std::string& directory) {
     INFO_LOG(COMMON, "DeleteDirRecursively: %s", directory.c_str());
-#ifdef _WIN32
-    // Find the first file in the directory.
-    WIN32_FIND_DATA ffd;
-    HANDLE hFind = FindFirstFile(UTF8ToTStr(directory + "\\*").c_str(), &ffd);
 
-    if (hFind == INVALID_HANDLE_VALUE)
-    {
-        FindClose(hFind);
-        return false;
-    }
-
-    // windows loop
-    do
-    {
-        const std::string virtualName(TStrToUTF8(ffd.cFileName));
-#else
-    struct dirent* result = NULL;
-    DIR *dirp = opendir(directory.c_str());
+    DIR* dirp = opendir(directory.c_str());
     if (!dirp)
         return false;
 
-    // non windows loop
-    while ((result = readdir(dirp)) != NULL)
-    {
-        const std::string virtualName = result->d_name;
-#endif
+    struct dirent* result = nullptr;
+    while ((result = readdir(dirp)) != nullptr) {
+        const std::string virtual_name = result->d_name;
 
-        // check for "." and ".."
-        if (((virtualName[0] == '.') && (virtualName[1] == '\0')) ||
-            ((virtualName[0] == '.') && (virtualName[1] == '.') && 
-             (virtualName[2] == '\0')))
+        if (((virtual_name[0] == '.') && (virtual_name[1] == '\0')) ||
+            ((virtual_name[0] == '.') && (virtual_name[1] == '.') && (virtual_name[2] == '\0')))
             continue;
 
-        std::string newPath = directory + DIR_SEP_CHR + virtualName;
-        if (IsDirectory(newPath))
-        {
-            if (!DeleteDirRecursively(newPath))
-            {
-                #ifndef _WIN32
+        std::string new_path = directory + DIR_SEP_CHR + virtual_name;
+        if (IsDirectory(new_path)) {
+            if (!DeleteDirRecursively(new_path)) {
                 closedir(dirp);
-                #endif
-
                 return false;
             }
+        } else if (!File::Delete(new_path)) {
+            closedir(dirp);
+            return false;
         }
-        else
-        {
-            if (!File::Delete(newPath))
-            {
-                #ifndef _WIN32
-                closedir(dirp);
-                #endif
-
-                return false;
-            }
-        }
-
-#ifdef _WIN32
-    } while (FindNextFile(hFind, &ffd) != 0);
-    FindClose(hFind);
-#else
     }
+
     closedir(dirp);
-#endif
     File::DeleteDir(directory);
-        
     return true;
 }
 
 // Create directory and copy contents (does not overwrite existing files)
-void CopyDir(const std::string &source_path, const std::string &dest_path)
-{
-#ifndef _WIN32
-    if (source_path == dest_path) return;
-    if (!File::Exists(source_path)) return;
-    if (!File::Exists(dest_path)) File::CreateFullPath(dest_path);
+void CopyDir(const std::string& source_path, const std::string& dest_path) {
+    if (source_path == dest_path)
+        return;
+    if (!File::Exists(source_path))
+        return;
+    if (!File::Exists(dest_path))
+        File::CreateFullPath(dest_path);
 
-    struct dirent* result = NULL;
-    DIR *dirp = opendir(source_path.c_str());
-    if (!dirp) return;
+    DIR* dirp = opendir(source_path.c_str());
+    if (!dirp)
+        return;
 
-    while ((result = readdir(dirp)) != NULL)
-    {
-        const std::string virtualName(result->d_name);
-        // check for "." and ".."
-        if (((virtualName[0] == '.') && (virtualName[1] == '\0')) ||
-            ((virtualName[0] == '.') && (virtualName[1] == '.') &&
-            (virtualName[2] == '\0')))
+    struct dirent* result = nullptr;
+    while ((result = readdir(dirp)) != nullptr) {
+        const std::string virtual_name(result->d_name);
+        if (((virtual_name[0] == '.') && (virtual_name[1] == '\0')) ||
+            ((virtual_name[0] == '.') && (virtual_name[1] == '.') &&
+             (virtual_name[2] == '\0')))
             continue;
 
-        std::string source, dest;
-        source = source_path + virtualName;
-        dest = dest_path + virtualName;
-        if (IsDirectory(source))
-        {
+        std::string source = source_path + virtual_name;
+        std::string dest = dest_path + virtual_name;
+        if (IsDirectory(source)) {
             source += '/';
             dest += '/';
-            if (!File::Exists(dest)) File::CreateFullPath(dest);
+            if (!File::Exists(dest))
+                File::CreateFullPath(dest);
             CopyDir(source, dest);
+        } else if (!File::Exists(dest)) {
+            File::Copy(source, dest);
         }
-        else if (!File::Exists(dest)) File::Copy(source, dest);
     }
     closedir(dirp);
-#endif
 }
 
 // Returns the current directory
@@ -561,7 +472,6 @@ bool SetCurrentDir(const std::string &directory)
     return __chdir(directory.c_str()) == 0;
 }
 
-#if defined(__APPLE__)
 std::string GetBundleDirectory() 
 {
     CFURLRef BundleRef;
@@ -575,34 +485,14 @@ std::string GetBundleDirectory()
 
     return AppBundlePath;
 }
-#endif
 
-#ifdef _WIN32
-std::string& GetExeDirectory()
-{
-    static std::string DolphinPath;
-    if (DolphinPath.empty())
-    {
-        TCHAR Dolphin_exe_Path[2048];
-        GetModuleFileName(NULL, Dolphin_exe_Path, 2048);
-        DolphinPath = TStrToUTF8(Dolphin_exe_Path);
-        DolphinPath = DolphinPath.substr(0, DolphinPath.find_last_of('\\'));
-    }
-    return DolphinPath;
-}
-#endif
 
 std::string GetSysDirectory()
 {
     std::string sysDir;
-
-#if defined (__APPLE__)
     sysDir = GetBundleDirectory();
     sysDir += DIR_SEP;
     sysDir += SYSDATA_DIR;
-#else
-    sysDir = SYSDATA_DIR;
-#endif
     sysDir += DIR_SEP;
 
     INFO_LOG(COMMON, "GetSysDirectory: Setting to %s:", sysDir.c_str());
@@ -618,16 +508,12 @@ const std::string& GetUserPath(const unsigned int DirIDX, const std::string &new
     // Set up all paths and files on the first run
     if (paths[D_USER_IDX].empty())
     {
-#ifdef _WIN32
-        paths[D_USER_IDX] = GetExeDirectory() + DIR_SEP USERDATA_DIR DIR_SEP;
-#else
         if (File::Exists(ROOT_DIR DIR_SEP USERDATA_DIR))
             paths[D_USER_IDX] = ROOT_DIR DIR_SEP USERDATA_DIR DIR_SEP;
         else
             paths[D_USER_IDX] = std::string(getenv("HOME") ? 
                 getenv("HOME") : getenv("PWD") ? 
                 getenv("PWD") : "") + DIR_SEP EMU_DATA_DIR DIR_SEP;
-#endif
 
         paths[D_CONFIG_IDX]            = paths[D_USER_IDX] + CONFIG_DIR DIR_SEP;
         paths[D_GAMECONFIG_IDX]        = paths[D_USER_IDX] + GAMECONFIG_DIR DIR_SEP;
@@ -713,11 +599,9 @@ const std::string& GetUserPath(const unsigned int DirIDX, const std::string &new
 //{
 //    std::string dir = File::GetUserPath(D_THEMES_IDX) + theme_name + "/";
 //
-//#if !defined(_WIN32)
 //    // If theme does not exist in user's dir load from shared directory
 //    if (!File::Exists(dir))
 //        dir = SHARED_USER_DIR THEMES_DIR "/" + theme_name + "/";
-//#endif
 //    
 //    return dir;
 //}
@@ -776,15 +660,9 @@ void IOFile::Swap(IOFile& other)
     std::swap(m_good, other.m_good);
 }
 
-bool IOFile::Open(const std::string& filename, const char openmode[])
-{
+bool IOFile::Open(const std::string& filename, const char openmode[]) {
     Close();
-#ifdef _WIN32
-    _tfopen_s(&m_file, UTF8ToTStr(filename).c_str(), UTF8ToTStr(openmode).c_str());
-#else
     m_file = fopen(filename.c_str(), openmode);
-#endif
-
     m_good = IsOpen();
     return m_good;
 }
@@ -844,18 +722,8 @@ bool IOFile::Flush()
     return m_good;
 }
 
-bool IOFile::Resize(u64 size)
-{
-    if (!IsOpen() || 0 !=
-#ifdef _WIN32
-        // ector: _chsize sucks, not 64-bit safe
-        // F|RES: changed to _chsize_s. i think it is 64-bit safe
-        _chsize_s(_fileno(m_file), size)
-#else
-        // TODO: handle 64bit and growing
-        ftruncate(fileno(m_file), size)
-#endif
-    )
+bool IOFile::Resize(u64 size) {
+    if (!IsOpen() || 0 != ftruncate(fileno(m_file), size))
         m_good = false;
 
     return m_good;

@@ -51,25 +51,7 @@ fun, and definign VAILDATE will define SWI 1 to enter SVC mode, and SWI
 #define unlink(s) remove(s)
 #endif
 
-#ifdef HAVE_UNISTD_H
-#endif
-
-#ifdef __riscos
-extern int _fisatty (FILE *);
-#define isatty_(f) _fisatty(f)
-#else
-#ifdef __ZTC__
-#include <io.h>
-#define isatty_(f) isatty((f)->_file)
-#else
-#ifdef macintosh
-#include <ioctl.h>
-#define isatty_(f) (~ioctl ((f)->_file, FIOINTERACTIVE, NULL))
-#else
-#define isatty_(f) isatty (fileno (f))
-#endif
-#endif
-#endif
+#define isatty_(f) isatty(fileno(f))
 
 #include "armdefs.h"
 #include "armos.h"

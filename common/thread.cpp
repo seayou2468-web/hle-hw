@@ -6,20 +6,14 @@
 #include "common.h"
 
 
-#ifdef __APPLE__
 #include <mach/mach.h>
-#endif
 
 namespace Common
 {
 
 int CurrentThreadId()
 {
-#if defined(__APPLE__)
     return mach_thread_self();
-#else
-    return 0;
-#endif
 }
 
 void SetThreadAffinity(std::thread::native_handle_type thread, u32 mask)
@@ -45,11 +39,7 @@ void SwitchCurrentThread()
 
 void SetCurrentThreadName(const char* szThreadName)
 {
-#if defined(__APPLE__)
     pthread_setname_np(szThreadName);
-#else
-    pthread_setname_np(pthread_self(), szThreadName);
-#endif
 }
 
 } // namespace Common

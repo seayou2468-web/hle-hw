@@ -32,9 +32,7 @@
 #include <type_traits>
 
 #ifndef __forceinline
-#ifndef _WIN32
 #define __forceinline inline __attribute__((always_inline))
-#endif
 #endif
 
 namespace nihstro {
@@ -126,7 +124,6 @@ public:
     // so that we can use this within unions
     BitField() = default;
 
-#ifndef _WIN32
     // We explicitly delete the copy assigment operator here, because the
     // default copy assignment would copy the full storage value, rather than
     // just the bits relevant to this particular bit field.
@@ -143,7 +140,6 @@ public:
     // harm than anything. Instead, it's suggested to never use the copy
     // constructor directly but instead invoke Assign() explicitly.
     // BitField& operator=(const BitField&) = delete;
-#endif
 
     __forceinline BitField& operator=(T val)
     {
@@ -220,9 +216,7 @@ private:
 public:
     BitFlag() = default;
 
-#ifndef _WIN32
     BitFlag& operator=(const BitFlag&) = delete;
-#endif
 
     __forceinline BitFlag& operator=(bool val)
     {

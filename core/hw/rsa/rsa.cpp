@@ -6,10 +6,8 @@
 #include <array>
 #include <sstream>
 #include <vector>
-#if defined(__APPLE__)
 #include <CoreFoundation/CoreFoundation.h>
 #include <Security/Security.h>
-#endif
 #include "../../../common/common_paths.h"
 #include "../../../common/file_util.h"
 #include "../../../common/logging/log.h"
@@ -21,7 +19,6 @@ namespace HW::RSA {
 
 namespace {
 
-#if defined(__APPLE__)
 std::vector<u8> EncodeAsn1Length(std::size_t length) {
     if (length < 0x80) {
         return {static_cast<u8>(length)};
@@ -178,7 +175,6 @@ SecKeyRef CreateSecRsaPrivateKey(std::span<const u8> modulus, std::span<const u8
     }
     return key;
 }
-#endif
 
 } // namespace
 
@@ -191,7 +187,6 @@ RsaSlot local_friend_code_seed_slot;
 
 std::vector<u8> RsaSlot::ModularExponentiation(std::span<const u8> message,
                                                int out_size_bytes) const {
-#if defined(__APPLE__)
     ScopedCFTypeRef public_key(CreateSecRsaPublicKey(modulus, exponent));
     if (public_key.As<SecKeyRef>() == nullptr) {
         LOG_ERROR(HW_RSA, "Failed to create SecKey public key");
@@ -231,10 +226,6 @@ std::vector<u8> RsaSlot::ModularExponentiation(std::span<const u8> message,
         std::copy(result_ptr, result_ptr + result_len, out.end() - result_len);
     }
     return out;
-#else
-    LOG_ERROR(HW_RSA, "RSA modular exponentiation is only supported on Apple targets");
-    return {};
-#endif
 }
 
 std::vector<u8> RsaSlot::Sign(std::span<const u8> message) const {
@@ -243,7 +234,6 @@ std::vector<u8> RsaSlot::Sign(std::span<const u8> message) const {
         return {};
     }
 
-#if defined(__APPLE__)
     ScopedCFTypeRef private_key(CreateSecRsaPrivateKey(modulus, exponent, private_d));
     if (private_key.As<SecKeyRef>() == nullptr) {
         LOG_ERROR(HW_RSA, "Failed to create SecKey private key");
@@ -271,14 +261,9 @@ std::vector<u8> RsaSlot::Sign(std::span<const u8> message) const {
     const auto* sig_ptr = CFDataGetBytePtr(signature_data.As<CFDataRef>());
     const std::size_t sig_len = static_cast<std::size_t>(CFDataGetLength(signature_data.As<CFDataRef>()));
     return std::vector<u8>(sig_ptr, sig_ptr + sig_len);
-#else
-    LOG_ERROR(HW_RSA, "RSA sign is only supported on Apple targets");
-    return {};
-#endif
 }
 
 bool RsaSlot::Verify(std::span<const u8> message, std::span<const u8> signature) const {
-#if defined(__APPLE__)
     ScopedCFTypeRef public_key(CreateSecRsaPublicKey(modulus, exponent));
     if (public_key.As<SecKeyRef>() != nullptr) {
         ScopedCFTypeRef message_data(CFDataCreate(kCFAllocatorDefault, message.data(), message.size()));
@@ -295,10 +280,6 @@ bool RsaSlot::Verify(std::span<const u8> message, std::span<const u8> signature)
         }
     }
     return false;
-#else
-    LOG_ERROR(HW_RSA, "RSA verify is only supported on Apple targets");
-    return false;
-#endif
 }
 
 std::vector<u8> HexToVector(const std::string& hex) {

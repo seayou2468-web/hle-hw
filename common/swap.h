@@ -17,43 +17,11 @@
 
 #pragma once
 
-// Android
-#if defined(ANDROID)
-#include <sys/endian.h>
-
-#if _BYTE_ORDER == _LITTLE_ENDIAN && !defined(COMMON_LITTLE_ENDIAN)
-#define COMMON_LITTLE_ENDIAN 1
-#elif _BYTE_ORDER == _BIG_ENDIAN && !defined(COMMON_BIG_ENDIAN)
-#define COMMON_BIG_ENDIAN 1
-#endif
-
-// GCC 4.6+
-#elif __GNUC__ >= 5 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)
-
+// iOS-only build: infer endianess from compiler byte-order macros.
 #if __BYTE_ORDER__ && (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) && !defined(COMMON_LITTLE_ENDIAN)
 #define COMMON_LITTLE_ENDIAN 1
 #elif __BYTE_ORDER__ && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) && !defined(COMMON_BIG_ENDIAN)
 #define COMMON_BIG_ENDIAN 1
-#endif
-
-// LLVM/clang
-#elif __clang__
-
-#if __LITTLE_ENDIAN__ && !defined(COMMON_LITTLE_ENDIAN)
-#define COMMON_LITTLE_ENDIAN 1
-#elif __BIG_ENDIAN__ && !defined(COMMON_BIG_ENDIAN)
-#define COMMON_BIG_ENDIAN 1
-#endif
-
-// MSVC
-#elif defined(_MSC_VER) && !defined(COMMON_BIG_ENDIAN) && !defined(COMMON_LITTLE_ENDIAN)
-
-#ifdef _XBOX
-#define COMMON_BIG_ENDIAN 1
-#else
-#define COMMON_LITTLE_ENDIAN 1
-#endif
-
 #endif
 
 // Worst case, default to little endian.

@@ -121,9 +121,6 @@ void LogManager::Log(LogTypes::LOG_LEVELS level, LogTypes::LOG_TYPE type,
         Common::Timer::GetTimeFormatted().c_str(),
         file, line, level_to_char[(int)level],
         log->GetShortName(), temp);
-#ifdef ANDROID
-    Host_SysMessage(msg);    
-#endif
     printf(msg); // TODO(ShizZy): RemoveMe when I no longer need this
     log->Trigger(level, msg);
 }

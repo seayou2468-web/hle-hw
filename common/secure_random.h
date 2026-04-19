@@ -12,9 +12,7 @@
 #include <span>
 #include <type_traits>
 
-#if defined(__APPLE__)
 #include <Security/Security.h>
-#endif
 
 namespace Common {
 
@@ -23,15 +21,7 @@ inline bool FillSecureRandom(std::span<std::uint8_t> out) {
         return true;
     }
 
-#if defined(__APPLE__)
     return SecRandomCopyBytes(kSecRandomDefault, out.size(), out.data()) == errSecSuccess;
-#else
-    std::random_device device;
-    for (auto& byte : out) {
-        byte = static_cast<std::uint8_t>(device() & 0xFFu);
-    }
-    return true;
-#endif
 }
 
 template <std::size_t N>

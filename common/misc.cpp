@@ -4,10 +4,8 @@
 
 #include "common.h"
 
-// Neither Android nor OS X support TLS
-#if  defined(__APPLE__) || (ANDROID && __clang__)
+// iOS path: use fallback TLS define for this translation unit.
 #define __thread
-#endif
 
 // Generic function to get last error message.
 // Call directly after the command or use the error num.

@@ -6,8 +6,6 @@
 #ifndef _MEMORYUTIL_H
 #define _MEMORYUTIL_H
 
-#ifndef _WIN32
-#endif
 #include <string>
 
 void* AllocateExecutableMemory(size_t size, bool low = true);

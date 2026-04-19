@@ -14,15 +14,12 @@
 #include <stdio.h>
 #include <string.h>
 
-// This may not be defined outside _WIN32
-#ifndef _WIN32
 #ifndef INFINITE
 #define INFINITE 0xffffffff
 #endif
 
 //for gettimeofday and struct time(spec|val)
 #include <time.h>
-#endif
 
 namespace Common
 {

@@ -21,22 +21,9 @@
 
 #include "file_sys.h"
 
-#if defined(__APPLE__)
-
-#if TARGET_OS_IPHONE
-#define HOST_IS_CASE_SENSITIVE 1
-#elif TARGET_IPHONE_SIMULATOR
-#define HOST_IS_CASE_SENSITIVE 0
-#else
-// Mac OSX case sensitivity defaults off, but is user configurable (when
-// creating a filesytem), so assume the worst:
-#define HOST_IS_CASE_SENSITIVE 1
-#endif
-
-#else  // Android, Linux, BSD (and the rest?)
 #define HOST_IS_CASE_SENSITIVE 1
 
-#endif
+
 
 #if HOST_IS_CASE_SENSITIVE
 enum FixPathCaseBehavior {
