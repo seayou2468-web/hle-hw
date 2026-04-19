@@ -146,12 +146,6 @@ inline u64 Log2(u64 val)
 {
 #if defined(__GNUC__)
     return 63 - __builtin_clzll(val);
-
-#elif defined(_MSC_VER) && defined(IOS_ARM64)
-    unsigned long result = -1;
-    _BitScanReverse64(&result, val);
-    return result;
-
 #else
     u64 result = -1;
     while (val != 0)

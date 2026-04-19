@@ -7,9 +7,7 @@
 #include "common.h"
 #include "console_listener.h"
 
-#ifdef __APPLE__
 #include <os/log.h>
-#endif
 
 ConsoleListener::ConsoleListener() : bUseColor(false) {}
 ConsoleListener::~ConsoleListener() = default;
@@ -27,7 +25,6 @@ void ConsoleListener::Log(LogTypes::LOG_LEVELS level, const char* text) {
     if (!text || !*text) {
         return;
     }
-#ifdef __APPLE__
     os_log_type_t log_type = OS_LOG_TYPE_DEFAULT;
     switch (level) {
     case LogTypes::LERROR:
@@ -46,8 +43,4 @@ void ConsoleListener::Log(LogTypes::LOG_LEVELS level, const char* text) {
         break;
     }
     os_log_with_type(OS_LOG_DEFAULT, log_type, "%{public}s", text);
-#else
-    std::fputs(text, stdout);
-    std::fflush(stdout);
-#endif
 }

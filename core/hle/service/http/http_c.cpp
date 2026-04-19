@@ -3,12 +3,8 @@
 // Refer to the license.txt file included.
 
 #include <atomic>
-#if defined(__APPLE__)
 #include <CFNetwork/CFNetwork.h>
 #include <CoreFoundation/CoreFoundation.h>
-#else
-#error "Mikage HTTP backend now requires Apple CFNetwork/CoreFoundation"
-#endif
 #include <tuple>
 #include <cstring>
 #include <string_view>
@@ -233,10 +229,6 @@ static bool PerformRequestCFNetwork(const std::string& full_url, const std::stri
                                     Context::Response& out_response, std::string& out_error,
                                     std::atomic<u64>& current_download_size_bytes,
                                     std::atomic<u64>& total_download_size_bytes) {
-#ifndef __APPLE__
-    out_error = "CFNetwork backend is only available on Apple platforms";
-    return false;
-#else
     CFURLRef url = CFURLCreateWithBytes(kCFAllocatorDefault,
                                         reinterpret_cast<const UInt8*>(full_url.data()),
                                         static_cast<CFIndex>(full_url.size()),
@@ -361,7 +353,6 @@ static bool PerformRequestCFNetwork(const std::string& full_url, const std::stri
     CFRelease(response_header);
     CFRelease(stream);
     return true;
-#endif
 }
 
 void Context::ParseAsciiPostData() {

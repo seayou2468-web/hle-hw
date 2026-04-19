@@ -3,21 +3,17 @@
 #include "../../common/log.h"
 #include "../video_core.h"
 
-#if defined(__APPLE__)
 #ifdef BOOL
 #undef BOOL
 #endif
 #import <TargetConditionals.h>
 #import <Metal/Metal.h>
 #import <QuartzCore/CAMetalLayer.h>
-#endif
 
 namespace {
-#if defined(__APPLE__)
 id<MTLDevice> g_metal_device = nil;
 id<MTLCommandQueue> g_metal_queue = nil;
 id<MTLTexture> g_frame_texture = nil;
-#endif
 }
 
 RendererMetal::RendererMetal() : m_metal_available(false) {}
@@ -25,7 +21,6 @@ RendererMetal::RendererMetal() : m_metal_available(false) {}
 RendererMetal::~RendererMetal() = default;
 
 bool RendererMetal::InitializeMetalResources() {
-#if defined(__APPLE__)
     g_metal_device = MTLCreateSystemDefaultDevice();
     if (g_metal_device == nil) {
         return false;
@@ -45,27 +40,19 @@ bool RendererMetal::InitializeMetalResources() {
     descriptor.storageMode = MTLStorageModeShared;
     g_frame_texture = [g_metal_device newTextureWithDescriptor:descriptor];
     return g_frame_texture != nil;
-#else
-    return false;
-#endif
 }
 
 void RendererMetal::Init() {
-#if defined(__APPLE__)
     m_metal_available = InitializeMetalResources();
     if (m_metal_available) {
         NOTICE_LOG(RENDER, "Metal renderer initialized (iOS SDK)");
     } else {
         WARN_LOG(RENDER, "Metal device unavailable. Falling back to software path.");
     }
-#else
-    m_metal_available = false;
-#endif
     RendererSoftware::Init();
 }
 
 void RendererMetal::PresentFrame() {
-#if defined(__APPLE__)
     if (!m_metal_available || g_frame_texture == nil || g_metal_queue == nil) {
         return;
     }
@@ -111,7 +98,6 @@ void RendererMetal::PresentFrame() {
     }
 
     [command_buffer commit];
-#endif
 }
 
 void RendererMetal::SwapBuffers() {
@@ -119,10 +105,8 @@ void RendererMetal::SwapBuffers() {
 }
 
 void RendererMetal::ShutDown() {
-#if defined(__APPLE__)
     g_frame_texture = nil;
     g_metal_queue = nil;
     g_metal_device = nil;
-#endif
     RendererSoftware::ShutDown();
 }

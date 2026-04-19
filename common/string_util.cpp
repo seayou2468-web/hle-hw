@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <algorithm>
-#include <iconv.h>
+#include <CoreFoundation/CoreFoundation.h>
 #include <errno.h>
 #include <cstring>
 
@@ -62,27 +62,18 @@ bool CharArrayFromFormatV(char* out, int outsize, const char* format, va_list ar
 std::string StringFromFormat(const char* format, ...)
 {
     va_list args;
-    char *buf = NULL;
-#ifdef _WIN32
-    int required = 0;
+    char* buf = nullptr;
 
     va_start(args, format);
-    required = _vscprintf(format, args);
-    buf = new char[required + 1];
-    CharArrayFromFormatV(buf, required + 1, format, args);
-    va_end(args);
-
-    std::string temp = buf;
-    delete[] buf;
-#else
-    va_start(args, format);
-    if (vasprintf(&buf, format, args) < 0)
+    if (vasprintf(&buf, format, args) < 0) {
         ERROR_LOG(COMMON, "Unable to allocate memory for string");
+        va_end(args);
+        return {};
+    }
     va_end(args);
 
     std::string temp = buf;
     free(buf);
-#endif
     return temp;
 }
 
@@ -184,12 +175,7 @@ bool SplitPath(const std::string& full_path, std::string* _pPath, std::string* _
     if (full_path.empty())
         return false;
 
-    size_t dir_end = full_path.find_last_of("/"
-    // windows needs the : included for something like just "C:" to be considered a directory
-#ifdef _WIN32
-        ":"
-#endif
-    );
+    size_t dir_end = full_path.find_last_of("/");
     if (std::string::npos == dir_end)
         dir_end = 0;
     else
@@ -382,131 +368,80 @@ std::string UriEncode(const std::string & sSrc)
     return sResult;
 }
 
-#ifdef _WIN32
 
-std::string UTF16ToUTF8(const std::wstring& input)
-{
-    auto const size = WideCharToMultiByte(CP_UTF8, 0, input.data(), input.size(), nullptr, 0, nullptr, nullptr);
+static std::string CFStringToUTF8(CFStringRef cf_string) {
+    if (!cf_string) {
+        return {};
+    }
 
-    std::string output;
-    output.resize(size);
+    const CFIndex length = CFStringGetLength(cf_string);
+    const CFIndex max_size = CFStringGetMaximumSizeForEncoding(length, kCFStringEncodingUTF8) + 1;
+    std::string output(static_cast<std::size_t>(max_size), '\0');
 
-    if (size == 0 || size != WideCharToMultiByte(CP_UTF8, 0, input.data(), input.size(), &output[0], output.size(), nullptr, nullptr))
-        output.clear();
+    if (!CFStringGetCString(cf_string, output.data(), max_size, kCFStringEncodingUTF8)) {
+        return {};
+    }
 
+    output.resize(std::strlen(output.c_str()));
     return output;
 }
 
-std::wstring CPToUTF16(u32 code_page, const std::string& input)
-{
-    auto const size = MultiByteToWideChar(code_page, 0, input.data(), input.size(), nullptr, 0);
+static std::string CodePageBytesToUTF8(const std::string& input, CFStringEncoding encoding) {
+    if (input.empty()) {
+        return {};
+    }
 
-    std::wstring output;
-    output.resize(size);
+    CFStringRef cf_string = CFStringCreateWithBytes(kCFAllocatorDefault,
+                                                     reinterpret_cast<const UInt8*>(input.data()),
+                                                     static_cast<CFIndex>(input.size()), encoding, false);
+    if (!cf_string) {
+        return {};
+    }
 
-    if (size == 0 || size != MultiByteToWideChar(code_page, 0, input.data(), input.size(), &output[0], output.size()))
-        output.clear();
-
+    std::string output = CFStringToUTF8(cf_string);
+    CFRelease(cf_string);
     return output;
-}
-
-std::wstring UTF8ToUTF16(const std::string& input)
-{
-    return CPToUTF16(CP_UTF8, input);
-}
-
-std::string SHIFTJISToUTF8(const std::string& input)
-{
-    return UTF16ToUTF8(CPToUTF16(932, input));
 }
 
 std::string CP1252ToUTF8(const std::string& input)
 {
-    return UTF16ToUTF8(CPToUTF16(1252, input));
+    return CodePageBytesToUTF8(input, kCFStringEncodingWindowsLatin1);
 }
 
+std::string SHIFTJISToUTF8(const std::string& input)
+{
+    return CodePageBytesToUTF8(input, kCFStringEncodingDOSJapanese);
+}
+
+std::string UTF16ToUTF8(const std::wstring& input)
+{
+    if (input.empty()) {
+        return {};
+    }
+
+    CFStringEncoding encoding;
+    if constexpr (sizeof(wchar_t) == 4) {
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+        encoding = kCFStringEncodingUTF32LE;
 #else
-
-template <typename T>
-std::string CodeToUTF8(const char* fromcode, const std::basic_string<T>& input)
-{
-    std::string result;
-
-    iconv_t const conv_desc = iconv_open("UTF-8", fromcode);
-    if ((iconv_t)-1 == conv_desc)
-    {
-        ERROR_LOG(COMMON, "Iconv initialization failure [%s]: %s", fromcode, strerror(errno));
-    }
-    else
-    {
-        size_t const in_bytes = sizeof(T) * input.size();
-        size_t const out_buffer_size = 4 * in_bytes;
-
-        std::string out_buffer;
-        out_buffer.resize(out_buffer_size);
-
-        auto src_buffer = &input[0];
-        size_t src_bytes = in_bytes;
-        auto dst_buffer = &out_buffer[0];
-        size_t dst_bytes = out_buffer.size();
-
-        while (src_bytes != 0)
-        {
-            size_t const iconv_result = iconv(conv_desc, (char**)(&src_buffer), &src_bytes,
-                &dst_buffer, &dst_bytes);
-
-            if ((size_t)-1 == iconv_result)
-            {
-                if (EILSEQ == errno || EINVAL == errno)
-                {
-                    // Try to skip the bad character
-                    if (src_bytes != 0)
-                    {
-                        --src_bytes;
-                        ++src_buffer;
-                    }
-                }
-                else
-                {
-                    ERROR_LOG(COMMON, "iconv failure [%s]: %s", fromcode, strerror(errno));
-                    break;
-                }
-            }
-        }
-
-        out_buffer.resize(out_buffer_size - dst_bytes);
-        out_buffer.swap(result);
-        
-        iconv_close(conv_desc);
-    }
-    
-    return result;
-}
-
-std::string CP1252ToUTF8(const std::string& input)
-{
-    //return CodeToUTF8("CP1252//TRANSLIT", input);
-    //return CodeToUTF8("CP1252//IGNORE", input);
-    return CodeToUTF8("CP1252", input);
-}
-
-std::string SHIFTJISToUTF8(const std::string& input)
-{
-    //return CodeToUTF8("CP932", input);
-    return CodeToUTF8("SJIS", input);
-}
-
-std::string UTF16ToUTF8(const std::wstring& input)
-{
-    std::string result =
-    //    CodeToUTF8("UCS-2", input);
-    //    CodeToUTF8("UCS-2LE", input);
-    //    CodeToUTF8("UTF-16", input);
-        CodeToUTF8("UTF-16LE", input);
-
-    // TODO: why is this needed?
-    result.erase(std::remove(result.begin(), result.end(), 0x00), result.end());
-    return result;
-}
-
+        encoding = kCFStringEncodingUTF32BE;
 #endif
+    } else {
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+        encoding = kCFStringEncodingUTF16LE;
+#else
+        encoding = kCFStringEncodingUTF16BE;
+#endif
+    }
+
+    CFStringRef cf_string = CFStringCreateWithBytes(
+        kCFAllocatorDefault, reinterpret_cast<const UInt8*>(input.data()),
+        static_cast<CFIndex>(input.size() * sizeof(wchar_t)), encoding, false);
+    if (!cf_string) {
+        return {};
+    }
+
+    std::string output = CFStringToUTF8(cf_string);
+    CFRelease(cf_string);
+    return output;
+}

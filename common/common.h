@@ -33,7 +33,7 @@
 
 #define STACKALIGN
 
-#if __cplusplus >= 201103L || defined(_MSC_VER) || defined(__GXX_EXPERIMENTAL_CXX0X__)
+#if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
 #define HAVE_CXX11_SYNTAX 1
 #endif
 
@@ -58,15 +58,6 @@ private:
 #include "common_paths.h"
 #include "platform.h"
 
-#ifdef __APPLE__
-// The Darwin ABI requires that stack frames be aligned to 16-byte boundaries.
-// This is only needed on i386 gcc - x86_64 already aligns to 16 bytes.
-#if defined __i386__ && defined __GNUC__
-#undef STACKALIGN
-#define STACKALIGN __attribute__((__force_align_arg_pointer__))
-#endif
-
-#endif
 
 // iOS-compatible alignment and definitions
 #include <limits.h>

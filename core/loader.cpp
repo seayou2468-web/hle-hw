@@ -16,10 +16,8 @@
 #include <unordered_map>
 #include <vector>
 
-#if defined(__APPLE__)
 #include <CommonCrypto/CommonCryptor.h>
 #include <CommonCrypto/CommonDigest.h>
-#endif
 
 #include "loader.h"
 #include "system.h"
@@ -526,16 +524,12 @@ std::optional<std::array<u8, 16>> ComputeSecondaryKey(
         if (it == seeds.end()) {
             return std::nullopt;
         }
-#if defined(__APPLE__)
         std::array<u8, 32> buffer{};
         std::memcpy(buffer.data(), signature_keyy.data(), 16);
         std::memcpy(buffer.data() + 16, it->second.data(), 16);
         std::array<u8, CC_SHA256_DIGEST_LENGTH> sha{};
         CC_SHA256(buffer.data(), static_cast<CC_LONG>(buffer.size()), sha.data());
         std::memcpy(keyy.data(), sha.data(), keyy.size());
-#else
-        return std::nullopt;
-#endif
     }
     const std::array<u8, 16> generator_constant{
         0x1F, 0xF9, 0xE9, 0xAA, 0xC5, 0xFE, 0x04, 0x08,
@@ -545,7 +539,6 @@ std::optional<std::array<u8, 16>> ComputeSecondaryKey(
 
 bool AESCTRTransform(const std::vector<u8>& input, const std::array<u8, 16>& key,
                      const std::array<u8, 16>& ctr, std::vector<u8>& output) {
-#if defined(__APPLE__)
     output.resize(input.size());
     CCCryptorRef cryptor = nullptr;
     CCCryptorStatus status = CCCryptorCreateWithMode(kCCEncrypt, kCCModeCTR, kCCAlgorithmAES, ccNoPadding,
@@ -561,13 +554,6 @@ bool AESCTRTransform(const std::vector<u8>& input, const std::array<u8, 16>& key
         return false;
     }
     return true;
-#else
-    (void)input;
-    (void)key;
-    (void)ctr;
-    (void)output;
-    return false;
-#endif
 }
 
 bool TryDecryptAzaharEncryptedFileToTemp(const std::string& filename, std::string& out_temp_path,

@@ -13,12 +13,8 @@
 #define DIR_SEP_CHR '/'
 
 #ifndef MAX_PATH
-    #ifdef _WIN32
-        #define MAX_PATH 260
-    #else
-        #include <limits.h>
-        #define MAX_PATH PATH_MAX
-    #endif
+    #include <limits.h>
+    #define MAX_PATH PATH_MAX
 #endif
 
 // The user data dir

@@ -964,7 +964,7 @@ unsigned InterpreterMainLoop(ARMul_State* cpu) {
 
 // GCC and Clang have a C++ extension to support a lookup table of labels. Otherwise, fallback to a
 // clunky switch statement.
-#if defined __GNUC__ || (defined __clang__ && !defined _MSC_VER)
+#if defined __GNUC__ || defined __clang__
 #define GOTO_NEXT_INST                                                                             \
     GDB_BP_CHECK;                                                                                  \
     if (num_instrs >= cpu->NumInstrsToExecute)                                                     \
@@ -1648,13 +1648,11 @@ DISPATCH: {
             goto END;
     }
 
-#ifndef ANDROID
     // Find breakpoint if one exists within the block
     if (GDBStub::IsConnected()) {
         breakpoint_data =
             GDBStub::GetNextBreakpointFromAddress(cpu->Reg[15], GDBStub::BreakpointType::Execute);
     }
-#endif
 
     inst_base = (arm_inst*)&trans_cache_buf[ptr];
     GOTO_NEXT_INST;

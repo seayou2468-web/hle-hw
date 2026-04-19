@@ -7,11 +7,7 @@
 #include <memory>
 #include <sstream>
 #include <type_traits>
-#if defined(__APPLE__)
 #include <Security/Security.h>
-#else
-#error "Mikage ECC backend now requires Apple Security.framework"
-#endif
 #include "../../common/assert.h"
 #include "../../common/logging/log.h"
 #include "../../common/secure_random.h"

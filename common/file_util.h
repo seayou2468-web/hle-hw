@@ -121,13 +121,7 @@ const std::string& GetUserPath(const unsigned int DirIDX, const std::string &new
 // Returns the path to where the sys file are
 std::string GetSysDirectory();
 
-#ifdef __APPLE__
-std::string GetBundleDirectory();
-#endif
-
-#ifdef _WIN32
-std::string &GetExeDirectory();
-#endif
+	std::string GetBundleDirectory();
 
 bool WriteStringToFile(bool text_file, const std::string &str, const char *filename);
 bool ReadFileToString(bool text_file, const char *filename, std::string &str);
@@ -214,11 +208,7 @@ private:
 template <typename T>
 void OpenFStream(T& fstream, const std::string& filename, std::ios_base::openmode openmode)
 {
-#ifdef _WIN32
-	fstream.open(UTF8ToTStr(filename).c_str(), openmode);
-#else
 	fstream.open(filename.c_str(), openmode);
-#endif
 }
 
 #endif

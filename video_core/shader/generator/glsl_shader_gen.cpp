@@ -74,11 +74,7 @@ static std::string GetVertexInterfaceDeclaration(bool is_output, bool use_clip_p
         out += "out gl_PerVertex {\n";
         // Apple Silicon GPU drivers optimize more aggressively, which can create
         // too much variance and cause visual artifacting in games like Pokemon.
-#ifdef __APPLE__
         out += "    invariant vec4 gl_Position;\n";
-#else
-        out += "    vec4 gl_Position;\n";
-#endif
         if (use_clip_planes) {
             out += "    float gl_ClipDistance[2];\n";
         }

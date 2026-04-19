@@ -775,11 +775,6 @@ extern int rdi_log;
 *                            Host-dependent stuff                           *
 \***************************************************************************/
 
-#ifdef macintosh
-pascal void SpinCursor (short increment);    /* copied from CursorCtl.h */
-# define HOURGLASS           SpinCursor( 1 )
-# define HOURGLASS_RATE      1023    /* 2^n - 1 */
-#endif
 
 //teawater add for arm2x86 2005.02.14-------------------------------------------
 /*ywc 2005-03-31*/
