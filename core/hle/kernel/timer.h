@@ -8,7 +8,7 @@
 #include "../../core_timing.h"
 #include "object.h"
 #include "wait_object.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class Timing;
@@ -120,5 +120,5 @@ private:
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::Timer)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::Timer)
 CONSTRUCT_KERNEL_OBJECT(Kernel::Timer)

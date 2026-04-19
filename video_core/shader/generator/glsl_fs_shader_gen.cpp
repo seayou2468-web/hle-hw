@@ -109,11 +109,7 @@ FragmentModule::FragmentModule(const FSConfig& config_, const UserConfig& user_,
     out.reserve(RESERVE_SIZE);
     DefineExtensions();
     DefineInterface();
-    if (profile.is_vulkan) {
-        DefineBindingsVK();
-    } else {
-        DefineBindingsGL();
-    }
+    DefineBindingsVK();
     DefineHelpers();
     DefineShadowHelpers();
     DefineLightingHelpers();
@@ -896,7 +892,7 @@ void FragmentModule::WriteLogicOp() {
 }
 
 void FragmentModule::WriteBlending() {
-    if (!config.EmulateBlend() || profile.is_vulkan) [[likely]] {
+    if (!config.EmulateBlend()) [[likely]] {
         return;
     }
 
@@ -934,7 +930,7 @@ void FragmentModule::WriteBlending() {
         case BlendFactor::OneMinusConstantAlpha:
             return "vec4(1.f) - blend_color.aaaa";
         default:
-            LOG_CRITICAL(Render_OpenGL, "Unknown blend factor {}", factor);
+            LOG_CRITICAL(Render_Software, "Unknown blend factor {}", factor);
             return "vec4(1.f)";
         }
     };
@@ -1133,9 +1129,9 @@ float ProcTexNoiseCoef(vec2 x) {
         out += "vec2 uv = abs(texcoord0);\n";
     }
 
-    // This LOD formula is the same as the LOD upper limit defined in OpenGL.
+    // This LOD formula matches the historically defined LOD upper limit.
     // f(x, y) <= m_u + m_v + m_w
-    // (See OpenGL 4.6 spec, 8.14.1 - Scale Factor and Level-of-Detail)
+    // (Reference: legacy desktop graphics specification section 8.14.1)
     // Note: this is different from the one normal 2D textures use.
     out += "vec2 duv = max(abs(dFdx(uv)), abs(dFdy(uv)));\n";
     // unlike normal texture, the bias is inside the log2
@@ -1240,7 +1236,7 @@ void FragmentModule::DefineExtensions() {
             use_fragment_shader_barycentric = false;
         }
     }
-    if (config.EmulateBlend() && !profile.is_vulkan) {
+    if (config.EmulateBlend()) {
         if (profile.has_gl_ext_framebuffer_fetch) {
             out += "#extension GL_EXT_shader_framebuffer_fetch : enable\n";
             out += "#define destFactor color\n";
@@ -1253,7 +1249,7 @@ void FragmentModule::DefineExtensions() {
         }
     }
 
-    if (!profile.is_vulkan) {
+    if (true) {
         out += fragment_shader_precision_OES;
     }
 }
@@ -1460,7 +1456,7 @@ float mix2(vec4 s, vec2 a) {
 )";
 
         if (config.texture.texture0_type == TexturingRegs::TextureConfig::Shadow2D) {
-            if (profile.is_vulkan) {
+            if (true) {
                 out += R"(
 float SampleShadow2D(ivec2 uv, uint z) {
     if (any(bvec4(lessThan(uv, ivec2(0)), greaterThanEqual(uv, textureSize(tex0, 0)))))
@@ -1517,7 +1513,7 @@ vec4 shadowTexture(vec2 uv, float w) {
 )";
             }
         } else if (config.texture.texture0_type == TexturingRegs::TextureConfig::ShadowCube) {
-            if (profile.is_vulkan) {
+            if (true) {
                 out += R"(
 uvec4 SampleShadowCube(int face, ivec2 i00, ivec2 i10, ivec2 i01, ivec2 i11) {
     return uvec4(

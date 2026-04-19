@@ -14,7 +14,7 @@
 #include "ipc_debugger/recorder.h"
 #include "kernel.h"
 #include "process.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::SessionRequestHandler)
 SERIALIZE_EXPORT_IMPL(Kernel::SessionRequestHandler::SessionDataBase)

@@ -33,7 +33,7 @@
 #include "../../../hw/aes/ccm.h"
 #include "../../../hw/aes/key.h"
 #include "../../../loader/loader.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERVICE_CONSTRUCT_IMPL(Service::APT::Module)
 

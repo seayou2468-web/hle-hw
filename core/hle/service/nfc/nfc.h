@@ -8,7 +8,7 @@
 #include "../../../../common/common_types.h"
 #include "nfc_device.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -384,4 +384,4 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::NFC
 
 SERVICE_CONSTRUCT(Service::NFC::Module)
-BOOST_CLASS_EXPORT_KEY(Service::NFC::Module)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::NFC::Module)

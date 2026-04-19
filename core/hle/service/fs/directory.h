@@ -36,4 +36,4 @@ private:
 
 } // namespace Service::FS
 
-BOOST_CLASS_EXPORT_KEY(Service::FS::Directory)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::FS::Directory)

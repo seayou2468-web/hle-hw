@@ -7,7 +7,7 @@
 #include <optional>
 #include <set>
 #include "../../../common/common_types.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -108,4 +108,4 @@ private:
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::MemoryRegionInfo)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::MemoryRegionInfo)

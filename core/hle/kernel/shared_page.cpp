@@ -12,7 +12,7 @@
 #include "shared_page.h"
 #include "../service/ptm/ptm.h"
 #include "../../movie.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(SharedPage::Handler)
 

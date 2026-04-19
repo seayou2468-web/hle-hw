@@ -11,7 +11,7 @@
 #include "../../../../common/swap.h"
 #include "../../../frontend/input.h"
 #include "ir_user.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 struct TimingEventType;
@@ -93,4 +93,4 @@ private:
 
 } // namespace Service::IR
 
-BOOST_CLASS_EXPORT_KEY(Service::IR::ExtraHID)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::IR::ExtraHID)

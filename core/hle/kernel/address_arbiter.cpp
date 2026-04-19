@@ -12,7 +12,7 @@
 #include "resource_limit.h"
 #include "thread.h"
 #include "../../memory.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::AddressArbiter)
 SERIALIZE_EXPORT_IMPL(Kernel::AddressArbiter::Callback)

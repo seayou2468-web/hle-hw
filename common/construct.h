@@ -13,7 +13,7 @@ public:
     }
 };
 
-#define BOOST_SERIALIZATION_CONSTRUCT(T)                                                           \
+#define SERIALIZATION_CONSTRUCT(T)                                                           \
     namespace MikageSerialization {                                                               \
     template <class Archive>                                                                       \
     void save_construct_data(Archive& ar, const T* t, const unsigned int file_version) {          \

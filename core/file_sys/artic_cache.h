@@ -14,7 +14,7 @@
 #include "archive_backend.h"
 #include "../hle/result.h"
 #include "../../network/artic_base/artic_base_client.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 class ArticCache {
@@ -148,5 +148,5 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::ArticCache)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArticCacheProvider)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArticCache)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArticCacheProvider)

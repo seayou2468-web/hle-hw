@@ -14,7 +14,7 @@
 #include "../../kernel/event.h"
 #include "../../result.h"
 #include "../fs/archive.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -590,7 +590,7 @@ private:
 
 } // namespace Service::APT
 
-BOOST_CLASS_VERSION(Service::APT::ApplicationJumpParameters, 1)
-BOOST_CLASS_VERSION(Service::APT::AppletManager, 1)
+SERIALIZATION_CLASS_VERSION(Service::APT::ApplicationJumpParameters, 1)
+SERIALIZATION_CLASS_VERSION(Service::APT::AppletManager, 1)
 
 SERVICE_CONSTRUCT(Service::APT::AppletManager)

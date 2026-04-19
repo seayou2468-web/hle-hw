@@ -9,7 +9,7 @@
 #include <vector>
 #include "assert.h"
 #include "common_types.h"
-#include "serialization/boost_all_serialization.h"
+#include "serialization/serialization_compat.h"
 
 /// Abstract host-side memory - for example a static buffer, or local vector
 class BackingMem {
@@ -62,7 +62,7 @@ private:
     friend class MikageSerialization::access;
 };
 
-BOOST_CLASS_EXPORT_KEY(BufferMem);
+SERIALIZATION_CLASS_EXPORT_KEY(BufferMem);
 
 /**
  * A managed reference to host-side memory.

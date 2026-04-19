@@ -12,7 +12,7 @@
 #include "../hid/hid.h"
 #include "ir_rst.h"
 #include "../../../movie.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Service::IR::IR_RST)
 SERVICE_CONSTRUCT_IMPL(Service::IR::IR_RST)

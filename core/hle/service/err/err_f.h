@@ -42,7 +42,7 @@ void InstallInterfaces(Core::System& system);
 
 } // namespace Service::ERR
 
-BOOST_CLASS_EXPORT_KEY(Service::ERR::ERR_F)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::ERR::ERR_F)
 
 namespace MikageSerialization {
 template <class Archive>

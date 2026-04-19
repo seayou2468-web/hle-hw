@@ -9,7 +9,7 @@
 #include "../../../common/common_types.h"
 #include "../ipc.h"
 #include "thread.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Memory {
 class MemorySystem;
@@ -41,4 +41,4 @@ Result TranslateCommandBuffer(KernelSystem& system, Memory::MemorySystem& memory
                               std::vector<MappedBufferContext>& mapped_buffer_context, bool reply);
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::MappedBufferContext)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::MappedBufferContext)

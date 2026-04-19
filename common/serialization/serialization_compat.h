@@ -13,15 +13,16 @@
 #include <optional>
 #include <set>
 #include <string>
+#include <type_traits>
 #include <unordered_map>
 #include <vector>
 
-#define BOOST_CLASS_EXPORT(T) namespace { }
-#define BOOST_CLASS_EXPORT_KEY(T) namespace { }
-#define BOOST_SERIALIZATION_REGISTER_ARCHIVE(T) namespace { }
-#define BOOST_CLASS_VERSION(T, Ver) namespace { }
-#define BOOST_SERIALIZATION_ASSUME_ABSTRACT(T) namespace { }
-#define BOOST_CLASS_EXPORT_IMPLEMENT(T) namespace { }
+#define SERIALIZATION_CLASS_EXPORT(T) namespace { }
+#define SERIALIZATION_CLASS_EXPORT_KEY(T) namespace { }
+#define SERIALIZATION_REGISTER_ARCHIVE(T) namespace { }
+#define SERIALIZATION_CLASS_VERSION(T, Ver) namespace { }
+#define SERIALIZATION_ASSUME_ABSTRACT(T) namespace { }
+#define SERIALIZATION_CLASS_EXPORT_IMPLEMENT(T) namespace { }
 
 namespace MikageSerialization {
 
@@ -36,7 +37,13 @@ public:
 };
 
 template <class Archive, class T>
-inline void split_free(Archive&, T&, const unsigned int) {}
+inline void split_free(Archive& ar, T& value, const unsigned int version) {
+    if constexpr (std::is_same_v<Archive, input_archive>) {
+        load(ar, value, version);
+    } else {
+        save(ar, value, version);
+    }
+}
 
 template <typename T>
 struct shared_ptr_helper {};
@@ -71,11 +78,9 @@ struct weak_ptr_tag {};
 
 } // namespace MikageSerialization
 
-namespace boost {
 namespace serialization = MikageSerialization;
-}
 
-#define BOOST_SERIALIZATION_SPLIT_MEMBER()                                                         \
+#define SERIALIZATION_SPLIT_MEMBER()                                                         \
     template <class Archive>                                                                       \
     void serialize(Archive& ar, const unsigned int ver) {                                          \
         if (std::is_same<Archive, MikageSerialization::input_archive>::value) {                    \

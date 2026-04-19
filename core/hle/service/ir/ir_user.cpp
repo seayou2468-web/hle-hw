@@ -15,7 +15,7 @@
 #include "../../kernel/shared_memory.h"
 #include "extra_hid.h"
 #include "ir_user.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Service::IR::IR_USER)
 SERVICE_CONSTRUCT_IMPL(Service::IR::IR_USER)

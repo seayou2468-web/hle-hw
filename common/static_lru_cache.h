@@ -1,4 +1,4 @@
-// Modified version of: https://www.boost.org/doc/libs/1_79_0/boost/compute/detail/lru_cache.hpp
+// Modified version of: internalized compatibility source
 // Most important change is the use of an array instead of a map, so that elements are
 // statically allocated. The insert and get methods have been merged into the request method.
 // Original license:
@@ -8,7 +8,7 @@
 //
 // Distributed under the Boost Software License, Version 1.0
 // See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt
+// Boost dependency removed in this fork
 //
 // See http://boostorg.github.com/compute for more information.
 //---------------------------------------------------------------------------//

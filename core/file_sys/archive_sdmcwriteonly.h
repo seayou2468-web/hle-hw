@@ -74,6 +74,6 @@ class SDMCWriteOnlyDelayGenerator;
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::SDMCWriteOnlyArchive)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_SDMCWriteOnly)
-BOOST_CLASS_EXPORT_KEY(FileSys::SDMCWriteOnlyDelayGenerator)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::SDMCWriteOnlyArchive)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_SDMCWriteOnly)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::SDMCWriteOnlyDelayGenerator)

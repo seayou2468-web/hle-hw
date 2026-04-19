@@ -5,7 +5,7 @@
 #pragma once
 
 #include <memory>
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 #include "shader_unit.h"
 
 namespace Pica {
@@ -59,6 +59,6 @@ private:
 };
 } // namespace Pica
 
-BOOST_CLASS_EXPORT_KEY(Pica::GeometryPipeline_Point)
-BOOST_CLASS_EXPORT_KEY(Pica::GeometryPipeline_VariablePrimitive)
-BOOST_CLASS_EXPORT_KEY(Pica::GeometryPipeline_FixedPrimitive)
+SERIALIZATION_CLASS_EXPORT_KEY(Pica::GeometryPipeline_Point)
+SERIALIZATION_CLASS_EXPORT_KEY(Pica::GeometryPipeline_VariablePrimitive)
+SERIALIZATION_CLASS_EXPORT_KEY(Pica::GeometryPipeline_FixedPrimitive)

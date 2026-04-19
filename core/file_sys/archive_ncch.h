@@ -12,7 +12,7 @@
 #include "file_backend.h"
 #include "../hle/result.h"
 #include "../../network/artic_base/artic_base_client.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace Service::FS {
 enum class MediaType : u32;
@@ -143,6 +143,6 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::NCCHArchive)
-BOOST_CLASS_EXPORT_KEY(FileSys::NCCHFile)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_NCCH)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::NCCHArchive)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::NCCHFile)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_NCCH)

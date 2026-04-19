@@ -15,7 +15,7 @@
 #include "file_backend.h"
 #include "romfs_reader.h"
 #include "../hle/result.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -195,8 +195,8 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::IVFCFile)
-BOOST_CLASS_EXPORT_KEY(FileSys::IVFCFileInMemory)
-BOOST_CLASS_EXPORT_KEY(FileSys::IVFCDelayGenerator)
-BOOST_CLASS_EXPORT_KEY(FileSys::RomFSDelayGenerator)
-BOOST_CLASS_EXPORT_KEY(FileSys::ExeFSDelayGenerator)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::IVFCFile)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::IVFCFileInMemory)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::IVFCDelayGenerator)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::RomFSDelayGenerator)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ExeFSDelayGenerator)

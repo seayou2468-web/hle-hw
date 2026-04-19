@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../../common/boost_icl_compat.h"
+#include "../../common/interval_set_compat.h"
 #include "surface_params.h"
 #include "utils.h"
 

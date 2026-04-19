@@ -6,7 +6,7 @@
 
 #include "../../common/bit_field.h"
 #include "../../common/common_types.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace Mii {
 
@@ -238,5 +238,5 @@ static_assert(std::is_trivially_copyable_v<ChecksummedMiiData>,
               "ChecksummedMiiData must be trivially copyable.");
 } // namespace Mii
 
-BOOST_CLASS_EXPORT_KEY(Mii::MiiData)
-BOOST_CLASS_EXPORT_KEY(Mii::ChecksummedMiiData)
+SERIALIZATION_CLASS_EXPORT_KEY(Mii::MiiData)
+SERIALIZATION_CLASS_EXPORT_KEY(Mii::ChecksummedMiiData)

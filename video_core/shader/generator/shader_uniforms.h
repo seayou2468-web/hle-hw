@@ -66,7 +66,7 @@ struct FSUniformData {
 static_assert(sizeof(FSUniformData) == 0x530,
               "The size of the UniformData does not match the structure in the shader");
 static_assert(sizeof(FSUniformData) < 16384,
-              "UniformData structure must be less than 16kb as per the OpenGL spec");
+              "UniformData structure must be less than 16kb as per the shader uniform block size specification");
 
 struct VSUniformData {
     u32 enable_clip1;
@@ -76,7 +76,7 @@ struct VSUniformData {
 static_assert(sizeof(VSUniformData) == 32,
               "The size of the VSUniformData does not match the structure in the shader");
 static_assert(sizeof(VSUniformData) < 16384,
-              "VSUniformData structure must be less than 16kb as per the OpenGL spec");
+              "VSUniformData structure must be less than 16kb as per the shader uniform block size specification");
 
 /**
  * Uniform struct for the Uniform Buffer Object that contains PICA vertex/geometry shader uniforms.
@@ -92,6 +92,6 @@ struct VSPicaUniformData {
 static_assert(sizeof(VSPicaUniformData) == 1616,
               "The size of the VSPicaUniformData does not match the structure in the shader");
 static_assert(sizeof(VSPicaUniformData) < 16384,
-              "VSPicaUniformData structure must be less than 16kb as per the OpenGL spec");
+              "VSPicaUniformData structure must be less than 16kb as per the shader uniform block size specification");
 
 } // namespace Pica::Shader::Generator

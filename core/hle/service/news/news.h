@@ -482,4 +482,4 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::NEWS
 
 SERVICE_CONSTRUCT(Service::NEWS::Module)
-BOOST_CLASS_EXPORT_KEY(Service::NEWS::Module)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::NEWS::Module)

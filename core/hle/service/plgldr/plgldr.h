@@ -25,7 +25,7 @@
 
 #include <memory>
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -137,5 +137,5 @@ void InstallInterfaces(Core::System& system);
 
 } // namespace Service::PLGLDR
 
-BOOST_CLASS_EXPORT_KEY(Service::PLGLDR::PLG_LDR)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::PLGLDR::PLG_LDR)
 SERVICE_CONSTRUCT(Service::PLGLDR::PLG_LDR)

@@ -11,7 +11,7 @@
 #include "../../../file_sys/secure_value_backend.h"
 #include "archive.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -766,5 +766,5 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::FS
 
 SERVICE_CONSTRUCT(Service::FS::FS_USER)
-BOOST_CLASS_EXPORT_KEY(Service::FS::FS_USER)
-BOOST_CLASS_EXPORT_KEY(Service::FS::ClientSlot)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::FS::FS_USER)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::FS::ClientSlot)

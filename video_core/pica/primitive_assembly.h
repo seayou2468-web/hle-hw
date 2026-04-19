@@ -6,7 +6,7 @@
 
 #include <array>
 #include <functional>
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 #include "output_vertex.h"
 #include "regs_pipeline.h"
 

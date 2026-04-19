@@ -14,7 +14,7 @@
 #include "../../common/static_lru_cache.h"
 #include "artic_cache.h"
 #include "../../network/artic_base/artic_base_client.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace Loader {
 enum class ResultStatus;
@@ -155,5 +155,5 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::DirectRomFSReader)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArticRomFSReader)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::DirectRomFSReader)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArticRomFSReader)

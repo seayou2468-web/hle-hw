@@ -5,7 +5,7 @@
 #pragma once
 
 #include "archive_source_sd_savedata.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 
@@ -69,5 +69,5 @@ private:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_OtherSaveDataPermitted)
-BOOST_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_OtherSaveDataGeneral)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_OtherSaveDataPermitted)
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::ArchiveFactory_OtherSaveDataGeneral)

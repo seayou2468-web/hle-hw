@@ -10,7 +10,7 @@
 #include "../../common/common_types.h"
 #include "../hle/result.h"
 #include "delay_generator.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace FileSys {
 

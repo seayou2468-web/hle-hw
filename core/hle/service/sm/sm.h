@@ -13,7 +13,7 @@
 #include "../../kernel/server_port.h"
 #include "../../result.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -100,7 +100,7 @@ private:
         }
     }
 
-    BOOST_SERIALIZATION_SPLIT_MEMBER()
+    SERIALIZATION_SPLIT_MEMBER()
 
     friend class MikageSerialization::access;
 };

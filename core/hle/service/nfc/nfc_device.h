@@ -11,7 +11,7 @@
 #include "nfc_results.h"
 #include "nfc_types.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 class KEvent;

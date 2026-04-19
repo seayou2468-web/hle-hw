@@ -8,7 +8,7 @@
 #include "../../../common/assert.h"
 #include "../../../common/common_types.h"
 #include "../../../common/logging/log.h"
-#include "../../../common/serialization/boost_flat_set.h"
+#include "../../../common/serialization/flat_set_serialization.h"
 #include "../../../common/settings.h"
 #include "../../../common/string_util.h"
 #include "../../arm/arm_interface.h"
@@ -22,7 +22,7 @@
 #include "thread.h"
 #include "../result.h"
 #include "../../memory.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::Thread)
 SERIALIZE_EXPORT_IMPL(Kernel::WakeupCallback)

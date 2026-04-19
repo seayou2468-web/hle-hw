@@ -5,7 +5,7 @@
 #include "../../common/archives.h"
 #include "../../common/crc.h"
 #include "mii.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Mii::MiiData)
 SERIALIZE_EXPORT_IMPL(Mii::ChecksummedMiiData)

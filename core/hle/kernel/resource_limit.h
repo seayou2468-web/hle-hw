@@ -8,7 +8,7 @@
 #include <memory>
 #include "../../../common/common_types.h"
 #include "object.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -109,7 +109,7 @@ private:
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::ResourceLimit)
-BOOST_CLASS_EXPORT_KEY(Kernel::ResourceLimitList)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::ResourceLimit)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::ResourceLimitList)
 CONSTRUCT_KERNEL_OBJECT(Kernel::ResourceLimit)
 CONSTRUCT_KERNEL_OBJECT(Kernel::ResourceLimitList)

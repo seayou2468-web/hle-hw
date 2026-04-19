@@ -15,7 +15,7 @@
 #include "handle_table.h"
 #include "object.h"
 #include "vm_manager.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -238,9 +238,9 @@ private:
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::AddressMapping)
-BOOST_CLASS_EXPORT_KEY(Kernel::CodeSet)
-BOOST_CLASS_EXPORT_KEY(Kernel::CodeSet::Segment)
-BOOST_CLASS_EXPORT_KEY(Kernel::Process)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::AddressMapping)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::CodeSet)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::CodeSet::Segment)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::Process)
 CONSTRUCT_KERNEL_OBJECT(Kernel::CodeSet)
 CONSTRUCT_KERNEL_OBJECT(Kernel::Process)

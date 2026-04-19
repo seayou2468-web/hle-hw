@@ -221,5 +221,5 @@ void InstallInterfaces(Core::System& system);
 
 } // namespace Service::AC
 
-BOOST_CLASS_EXPORT_KEY(Service::AC::Module)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::AC::Module)
 SERVICE_CONSTRUCT(Service::AC::Module)

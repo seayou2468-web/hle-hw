@@ -11,7 +11,7 @@
 #include "resource_limit.h"
 #include "wait_object.h"
 #include "../result.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -75,5 +75,5 @@ void ReleaseThreadMutexes(Thread* thread);
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::Mutex)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::Mutex)
 CONSTRUCT_KERNEL_OBJECT(Kernel::Mutex)

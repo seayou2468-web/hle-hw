@@ -6,7 +6,7 @@
 
 #include <cstddef>
 #include "../../common/common_types.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 #define SERIALIZE_DELAY_GENERATOR                                                                  \
 private:                                                                                           \
@@ -41,4 +41,4 @@ public:
 
 } // namespace FileSys
 
-BOOST_CLASS_EXPORT_KEY(FileSys::DefaultDelayGenerator);
+SERIALIZATION_CLASS_EXPORT_KEY(FileSys::DefaultDelayGenerator);

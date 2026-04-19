@@ -11,7 +11,7 @@
 #include "../../../common/serialization/atomic.h"
 #include "../../global.h"
 #include "kernel.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -95,7 +95,7 @@ inline std::shared_ptr<T> DynamicObjectCast(std::shared_ptr<Object> object) {
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::Object)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::Object)
 
 #define CONSTRUCT_KERNEL_OBJECT(T)                                                                 \
     namespace MikageSerialization {                                                               \

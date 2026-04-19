@@ -23,7 +23,7 @@
 #include "../../result.h"
 #include "../service.h"
 #include "../../../../network/artic_base/artic_base_client.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -1145,5 +1145,5 @@ void InstallInterfaces(Core::System& system);
 
 } // namespace Service::AM
 
-BOOST_CLASS_EXPORT_KEY(Service::AM::Module)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::AM::Module)
 SERVICE_CONSTRUCT(Service::AM::Module)

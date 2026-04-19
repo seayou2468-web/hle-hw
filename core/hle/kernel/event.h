@@ -7,7 +7,7 @@
 #include "object.h"
 #include "resource_limit.h"
 #include "wait_object.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -60,5 +60,5 @@ private:
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::Event)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::Event)
 CONSTRUCT_KERNEL_OBJECT(Kernel::Event)

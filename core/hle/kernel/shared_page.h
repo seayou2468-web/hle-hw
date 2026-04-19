@@ -19,7 +19,7 @@
 #include "../../../common/memory_ref.h"
 #include "../../../common/swap.h"
 #include "../../memory.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 struct TimingEventType;
@@ -149,4 +149,4 @@ void load_construct_data(Archive& ar, SharedPage::Handler* t, const unsigned int
 
 } // namespace MikageSerialization
 
-BOOST_CLASS_EXPORT_KEY(SharedPage::Handler)
+SERIALIZATION_CLASS_EXPORT_KEY(SharedPage::Handler)

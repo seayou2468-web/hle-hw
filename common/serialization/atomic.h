@@ -1,7 +1,7 @@
 #pragma once
 
 #include <atomic>
-#include "boost_all_serialization.h"
+#include "serialization_compat.h"
 
 namespace MikageSerialization {
 
@@ -11,9 +11,16 @@ void serialize(Archive& ar, std::atomic<T>& value, const unsigned int file_versi
 }
 
 template <class Archive, class T>
-void save(Archive&, const std::atomic<T>&, const unsigned int) {}
+void save(Archive& ar, const std::atomic<T>& value, const unsigned int) {
+    T tmp = value.load(std::memory_order_relaxed);
+    ar & tmp;
+}
 
 template <class Archive, class T>
-void load(Archive&, std::atomic<T>&, const unsigned int) {}
+void load(Archive& ar, std::atomic<T>& value, const unsigned int) {
+    T tmp{};
+    ar & tmp;
+    value.store(tmp, std::memory_order_relaxed);
+}
 
 } // namespace MikageSerialization

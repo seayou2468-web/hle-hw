@@ -7,8 +7,8 @@
 #include "common.h"
 #include "scm_rev.h"
 
-// Abstraction class used to provide an interface between emulation code and the frontend (e.g. SDL,
-//  iOS UIKit/Metal views, etc...)
+// Abstraction class used to provide an interface between emulation code and the frontend
+//  (e.g. iOS UIKit/Metal views, etc...)
 class EmuWindow
 {
 

@@ -23,7 +23,7 @@
 #include "cecd_s.h"
 #include "cecd_u.h"
 #include "../cfg/cfg.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 SERVICE_CONSTRUCT_IMPL(Service::CECD::Module)
 SERIALIZE_EXPORT_IMPL(Service::CECD::Module)

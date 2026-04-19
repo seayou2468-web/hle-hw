@@ -641,5 +641,5 @@ void InstallInterfaces(Core::System& system);
 } // namespace Service::CECD
 
 SERVICE_CONSTRUCT(Service::CECD::Module)
-BOOST_CLASS_EXPORT_KEY(Service::CECD::Module)
-BOOST_CLASS_EXPORT_KEY(Service::CECD::Module::SessionData)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::CECD::Module)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::CECD::Module::SessionData)

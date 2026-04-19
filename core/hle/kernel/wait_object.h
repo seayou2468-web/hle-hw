@@ -80,4 +80,4 @@ inline std::shared_ptr<WaitObject> DynamicObjectCast<WaitObject>(std::shared_ptr
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::WaitObject)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::WaitObject)

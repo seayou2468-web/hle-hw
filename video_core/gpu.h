@@ -6,7 +6,7 @@
 
 #include <functional>
 #include <memory>
-#include "../common/serialization/boost_all_serialization.h"
+#include "../common/serialization/serialization_compat.h"
 
 #include "../core/hle/service/gsp/gsp_interrupt.h"
 

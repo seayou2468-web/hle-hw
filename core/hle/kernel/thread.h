@@ -23,7 +23,7 @@
 #include "resource_limit.h"
 #include "wait_object.h"
 #include "../result.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 namespace Kernel {
 
@@ -429,8 +429,8 @@ std::shared_ptr<Thread> SetupMainThread(KernelSystem& kernel, u32 entry_point, u
 
 } // namespace Kernel
 
-BOOST_CLASS_EXPORT_KEY(Kernel::Thread)
-BOOST_CLASS_EXPORT_KEY(Kernel::WakeupCallback)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::Thread)
+SERIALIZATION_CLASS_EXPORT_KEY(Kernel::WakeupCallback)
 
 namespace MikageSerialization {
 

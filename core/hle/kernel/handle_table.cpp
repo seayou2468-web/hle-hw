@@ -10,7 +10,7 @@
 #include "handle_table.h"
 #include "process.h"
 #include "thread.h"
-#include "../../../common/serialization/boost_all_serialization.h"
+#include "../../../common/serialization/serialization_compat.h"
 
 SERIALIZE_EXPORT_IMPL(Kernel::HandleTable)
 

@@ -15,7 +15,7 @@
 #include "archives.h"
 #include "common_types.h"
 #include "file_util.h"
-#include "serialization/boost_all_serialization.h"
+#include "serialization/serialization_compat.h"
 
 namespace Common::Compression {
 
@@ -275,5 +275,5 @@ bool DeCompressZ3DSFile(const std::string& src_file, const std::string& dst_file
 
 } // namespace FileUtil
 
-BOOST_CLASS_EXPORT_KEY(FileUtil::Z3DSWriteIOFile)
-BOOST_CLASS_EXPORT_KEY(FileUtil::Z3DSReadIOFile)
+SERIALIZATION_CLASS_EXPORT_KEY(FileUtil::Z3DSWriteIOFile)
+SERIALIZATION_CLASS_EXPORT_KEY(FileUtil::Z3DSReadIOFile)

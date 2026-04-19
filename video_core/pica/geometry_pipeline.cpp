@@ -10,7 +10,7 @@
 #include "shader_setup.h"
 #include "shader_unit.h"
 #include "../shader/shader.h"
-#include "../../common/serialization/boost_all_serialization.h"
+#include "../../common/serialization/serialization_compat.h"
 
 namespace Pica {
 
@@ -121,7 +121,7 @@ private:
         buffer_end = attribute_buffer.data() + buffer_size;
     }
 
-    BOOST_SERIALIZATION_SPLIT_MEMBER()
+    SERIALIZATION_SPLIT_MEMBER()
 
     friend class MikageSerialization::access;
 };
@@ -219,7 +219,7 @@ private:
         buffer_cur = setup.uniforms.f.data() + buffer_idx;
     }
 
-    BOOST_SERIALIZATION_SPLIT_MEMBER()
+    SERIALIZATION_SPLIT_MEMBER()
 
     friend class MikageSerialization::access;
 };
@@ -300,7 +300,7 @@ private:
         buffer_end = setup.uniforms.f.data() + buffer_size;
     }
 
-    BOOST_SERIALIZATION_SPLIT_MEMBER()
+    SERIALIZATION_SPLIT_MEMBER()
 
     friend class MikageSerialization::access;
 };

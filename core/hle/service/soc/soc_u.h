@@ -8,7 +8,7 @@
 #include <utility>
 #include "../../result.h"
 #include "../service.h"
-#include "../../../../common/serialization/boost_all_serialization.h"
+#include "../../../../common/serialization/serialization_compat.h"
 
 namespace Core {
 class System;
@@ -178,4 +178,4 @@ void InstallInterfaces(Core::System& system);
 
 } // namespace Service::SOC
 
-BOOST_CLASS_EXPORT_KEY(Service::SOC::SOC_U)
+SERIALIZATION_CLASS_EXPORT_KEY(Service::SOC::SOC_U)
